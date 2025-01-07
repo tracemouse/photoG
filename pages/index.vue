@@ -52,6 +52,10 @@ const onClickUpload = async ()=>{
     inputOptions: tables,
     inputPlaceholder: "请选择桌号",
     showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
     inputValidator: (value) => {
       return new Promise((resolve) => {
         if (value) {
