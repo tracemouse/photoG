@@ -7,10 +7,22 @@
 <div class="cropper-content mt-3" v-if="base64">
   <NuxtImg class="u-img" :src="base64" />
 </div>
+<div class="mt-3 d-flex justify-content-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
+  <div>
+    <Icon name="tabler:photo-up" class="me-1" size="2rem"></Icon>
+  </div>
+  <div>
+    点击上传照片
+  </div>
+</div>
+
+<!-- <div class="d-flex justify-content-center mt-3">
+  <button class="btn btn-primary" @click="onClickSelect" v-if="!base64">选择照片</button>
+  <button class="btn btn-primary" disabled v-if="base64">照片已上传</button>
+</div> -->
 
 <div class="d-flex justify-content-center mt-3">
-  <button class="btn btn-danger" @click="onClickSelect" v-if="!base64">选择照片</button>
-  <button class="btn btn-danger" disabled v-if="base64">照片已上传</button>
+  <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
 </div>
 
 <!-- <div class="d-flex justify-content-center mt-3">
@@ -66,6 +78,18 @@ const onClickSelect = ()=>{
       open()
     }
   });
+}
+
+const onClickDel = ()=>{
+  $fetch('/api/del',{
+    query:{
+      id: id,
+    }
+  }).then((data)=>{
+    base64.value = ""
+  }).catch((error)=>{
+    showError()
+  })
 }
 
 //上传图片并压缩
@@ -187,7 +211,7 @@ const showError = ()=>{
   $swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "抱歉，上传失败，请稍候再试！",
+    text: "抱歉，操作失败，请稍候再试！",
   });
 }
 
