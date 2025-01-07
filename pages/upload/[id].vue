@@ -21,41 +21,18 @@
 
 </template>
 <script setup lang="ts"> 
- 
+const { $swal } = useNuxtApp()
+
 const route = useRoute()
 const id:number = parseInt(route.params.id as string)
 
 // const snackbar = useSnackbar()
 let loading = ref(false)
-let cropper = ref()
+ 
 let selected = ref(false)
 let base64 = ref("")
 
-const maxWidth = 2000;
-
-let option = ref()
-option.value = {
-    img: '', // 裁剪图片的地址
-    info: false, // 裁剪框的大小信息
-    outputSize: 0.7, // 裁剪生成图片的质量
-    outputType: 'jpeg', // 裁剪生成图片的格式
-    canScale: true, // 图片是否允许滚轮缩放
-    autoCrop: true, // 是否默认生成截图框
-    autoCropWidth: 2000, // 默认生成截图框宽度
-    autoCropHeight: 1500, // 默认生成截图框高度
-    fixedBox: false, // 固定截图框大小 不允许改变
-    fixed: false, // 是否开启截图框宽高固定比例
-    fixedNumber: [1, 1], // 截图框的宽高比例
-    full: false, // 是否输出原图比例的截图
-    canMoveBox: false, // 截图框能否拖动
-    canMove: true,
-    original: false, // 上传图片按照原始比例渲染
-    centerBox: true, // 截图框是否被限制在图片里面
-    infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
-    mode: 'contain',    // cover  图片铺满容器
-    maxImgSize: '1500',
-}
-
+const maxWidth = 500;
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*', // Set to accept only image files
   directory: false, // Select directories instead of files if set true
@@ -64,6 +41,8 @@ const { files, open, reset, onChange } = useFileDialog({
 
 //上传图片并压缩
 onChange((files) => {
+    useLoading().value = true
+
     if(!files || files.length != 1){
         // popError("请选择有效的图片文件")
         // snackbar.add({type: 'error',text: "请选择有效的图片文件"})
@@ -130,7 +109,7 @@ const blob2Base64 = (blob:any)=>{
     reader.readAsDataURL(blob);
     reader.onload = function (e) {
       base64.value = this.result as string
-      console.log(base64.value)
+      // console.log(base64.value)
       uploadBase64(base64.value)
     }
 }
@@ -140,17 +119,18 @@ const blob2Base64 = (blob:any)=>{
 const uploadBlob = (blob:Blob) =>{
     const formData = new FormData();
     formData.append('file', blob);
-    $fetch('/api/member/avatar/upload', {
+    $fetch('/api/upload', {
         method: 'POST',
         body: formData
     }).then((data)=>{
  
-        loading.value = false
+        useLoading().value = false
  
     }).catch((error)=>{
         // popApiError(error)
-        loading.value = false
+        useLoading().value = false
         // snackbar.add(snackbarApiError(error))
+        showError()
     })
 }
 
@@ -164,15 +144,30 @@ const uploadBase64 = (base64:string) =>{
         }
     }).then((data)=>{
  
-        loading.value = false
+      useLoading().value = false
+      showSucc()
  
     }).catch((error)=>{
         // popApiError(error)
-        loading.value = false
-        // snackbar.add(snackbarApiError(error))
+        useLoading().value = false
+        showError()
     })
 }
 
+const showError = ()=>{
+  $swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "抱歉，上传失败，请稍候再试！",
+  });
+}
+
+const showSucc = ()=>{
+  $swal.fire({
+    icon: "success",
+    title: "上传成功！",
+  });
+}
 
 const onClickBack = ()=>{
   navigateTo("/")

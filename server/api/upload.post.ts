@@ -7,7 +7,6 @@ export default eventHandler(async (event) => {
 	const root_url = `${SUPBASE_URL}/storage/v1/object/public/`
 
 	try{
-
 		//上传文件到telegraph
 		// const formData = await readFormData(event)
 		// const url = await useTelegra().uploadFormData(formData)
@@ -19,6 +18,16 @@ export default eventHandler(async (event) => {
 		const data = await db.file.uploadImg(id as string, fileData)
 
 		let url = root_url + data.fullPath + "?" + (new Date()).getTime()
+
+		let rec = await db.comm.getById("photo", id)
+		if(rec){
+			rec.url = url
+			rec.point = 0
+		}else{
+			rec = {id: id, url: url, point:0}
+		}
+		console.log(rec)
+		await db.comm.upsert("photo", rec)
 
 		// await db.user.updAvatar(id as string, url)
 

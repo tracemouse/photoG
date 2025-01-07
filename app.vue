@@ -8,7 +8,10 @@
     </NuxtLayout>
 
   </div>
- 
+  
+  <ClientOnly>
+    <ApiLoading v-if="useLoading().value"></ApiLoading>
+  </ClientOnly>
 </template>
 <script setup lang="ts">
   

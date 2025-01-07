@@ -22,7 +22,8 @@ export async function fileDB(supabase:SupabaseClient){
         upsert: true
       }
     )
-
+    // console.log(error)
+    // console.log(data)
     if(error){
       useServerError().throwDbError(error)
     }
