@@ -8,13 +8,18 @@
     第 {{id}} 桌
   </div>
   <div>
-    <button class="btn btn-light">
-      {{ point }}
-    </button>
   </div>
 </div>
 <div class="card-body d-flex justify-content-center">
   <NuxtImg class="u-img" :src="base64" />
+</div>
+<div class="card-footer">
+  <button class="btn btn-light d-flex align-items-center" @click="onClickVote()">
+    <Icon name="tabler:heart" class="me-1" size="1.2rem"></Icon> {{ point }}
+  </button>
+  <button class="btn btn-light d-flex align-items-center">
+    <Icon name="tabler:heart-filled text-danger" class="me-1" size="1.2rem"></Icon> {{ point }}
+  </button>
 </div>
 </div>
 
@@ -43,6 +48,7 @@ const { data: photo } = await useFetch("/api/get", {
 
 if(photo.value){
   base64.value = photo.value.url
+  point.value = photo.value.point
 }
  
 
@@ -50,19 +56,28 @@ const showError = ()=>{
   $swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "抱歉，上传失败，请稍候再试！",
+    text: "抱歉，点赞失败，请稍候再试！",
   });
 }
 
 const showSucc = ()=>{
   $swal.fire({
     icon: "success",
-    title: "上传成功！",
+    title: "点赞成功！",
   });
 }
 
-const onClickBack = ()=>{
-  navigateTo("/")
+const onClickVote = ()=>{
+  $fetch('/api/vote',{
+    query:{
+      id: id,
+    }
+  }).then((data)=>{
+    point.value = point.value + 1
+    showSucc()
+  }).catch((error)=>{
+    showError()
+  })
 }
 
 </script>

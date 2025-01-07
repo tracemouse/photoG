@@ -30,7 +30,6 @@ let loading = ref(false)
 let selected = ref(false)
 let base64 = ref("")
 
-
 const { data: photo } = await useFetch("/api/get", {
         query: {
           id: id
@@ -55,7 +54,7 @@ const { files, open, reset, onChange } = useFileDialog({
 const onClickSelect = ()=>{
   $swal.fire({
     title: `确认桌号(${id})是否正确?`,
-    text: `您正在为第${id}桌上传照片，请先检查确认是否选择了正确的桌号，一旦上传成功之后将会无法更改或重新上传！`,
+    text: `您正在为第${id}桌上传照片，请先检查确认是否选择了正确的桌号，每桌仅限上传一张照片，一旦上传成功之后将会无法更改或重新上传！`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",

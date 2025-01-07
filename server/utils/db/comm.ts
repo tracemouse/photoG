@@ -3,10 +3,8 @@ import consola from 'consola';
 import { useServerError } from '~/composables/useServerError';
 
 export type increase = {
-  table_name: string,
-  row_id: string,
+  row_id: number,
   x: number,
-  field_name: string,
 }
 
 //for common table
