@@ -32,8 +32,8 @@ body {
     /* background-color: var(--bs-tertiary-bg); */
     /* background-color: var(--bs-body-bg); */
     font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    background: url("/bg.svg");
-    background-size: cover;
+    /* background: url("/bg.svg");
+    background-size: cover; */
 }
 
 body[data-bs-theme=dark]{

@@ -1,16 +1,31 @@
 <template>
+<div class="i-container">
 
-<div class="d-flex justify-content-center">
-  <button class="btn btn-primary" @click="onClickUpload">我要上传</button>
+  <div class=" pt-5 px-5 title">
+    GSC IT Development & Test Center<br>2025 Annual Dinner
+  </div>
+
+
+  <div class="d-flex justify-content-center mt-5">
+    <button class="btn btn-primary" @click="onClickUpload">上传照片</button>
+  </div>
+  
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-danger" @click="onClickVote">点赞照片</button>
+  </div>
+  
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-info" @click="onClickVote">排行版</button>
+  </div>
+  
 </div>
-
-<div class="d-flex justify-content-center mt-3">
-  <button class="btn btn-danger" @click="onClickVote">我要点赞</button>
-</div>
-
 </template>
 <script setup lang="ts"> 
 const { $swal } = useNuxtApp()
+
+definePageMeta({
+  layout: 'simple',
+});
 
 const onClickUpload = async ()=>{
   // navigateTo("/upload/1")
@@ -48,13 +63,28 @@ const onClickUpload = async ()=>{
 }
 
 const onClickVote = ()=>{
-  
+  navigateTo('/photo/1')
 }
 
 </script>
 
 <style lang="scss" scoped>
- 
+ .i-container{
+    background: url("/bg1.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    min-width: 100vw;
+    color: white;
+
+    .title{
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+    }
+ }
+
  .btn {
     width: 250px;
  }
