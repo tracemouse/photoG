@@ -14,7 +14,7 @@
   </div>
 </div>
 <div class="card-body d-flex justify-content-center">
-  <img class="u-img" :src="base64" />
+  <NuxtImg class="u-img" :src="base64" />
 </div>
 </div>
 

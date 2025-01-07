@@ -1,7 +1,7 @@
 <template>
 <div class="i-container">
 
-  <div class=" pt-5 px-5 title">
+  <div class="py-5 px-3 title">
     GSC IT Development & Test Center<br>2025 Annual Dinner
   </div>
 
@@ -17,7 +17,13 @@
   <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-info" @click="onClickVote">排行版</button>
   </div>
-  
+
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
+  </div>
+
+  <!-- <Footer/> -->
+
 </div>
 </template>
 <script setup lang="ts"> 
@@ -26,6 +32,11 @@ const { $swal } = useNuxtApp()
 definePageMeta({
   layout: 'simple',
 });
+
+let tables = {}
+for(let i=1; i<32; i++){
+  tables[i + ""] = i
+}
 
 const onClickUpload = async ()=>{
   // navigateTo("/upload/1")
@@ -38,12 +49,7 @@ const onClickUpload = async ()=>{
   const { value: tableId } = await $swal.fire({
     title: "选择桌号",
     input: "select",
-    inputOptions: {
-      "1":1,
-      "2":2,
-      "3":4,
-      "4":4,
-    },
+    inputOptions: tables,
     inputPlaceholder: "请选择桌号",
     showCancelButton: true,
     inputValidator: (value) => {
@@ -66,17 +72,21 @@ const onClickVote = ()=>{
   navigateTo('/photo/1')
 }
 
+const onClickSeatplan = ()=>{
+  navigateTo('/seatplan')
+}
+
 </script>
 
 <style lang="scss" scoped>
  .i-container{
-    background: url("/bg1.jpg");
-    background-size: cover;
     min-height: 100vh;
     min-width: 100vw;
     color: white;
 
     .title{
+      background: url("/bg1.jpg");
+      background-size: cover;
       font-size: 2rem;
       font-weight: 700;
       display: flex;

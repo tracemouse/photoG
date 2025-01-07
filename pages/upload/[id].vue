@@ -5,7 +5,7 @@
 </div>
 
 <div class="cropper-content mt-3" v-if="base64">
-  <img class="u-img" :src="base64" />
+  <NuxtImg class="u-img" :src="base64" />
 </div>
 
 <div class="d-flex justify-content-center mt-3">
@@ -13,9 +13,9 @@
   <button class="btn btn-danger" disabled v-if="base64">照片已上传</button>
 </div>
 
-<div class="d-flex justify-content-center mt-3">
+<!-- <div class="d-flex justify-content-center mt-3">
   <button class="btn btn-dark" @click="onClickBack()">返回首页</button>
-</div>
+</div> -->
 
 </template>
 <script setup lang="ts"> 

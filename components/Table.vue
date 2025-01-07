@@ -4,7 +4,7 @@
       <div class="d-flex">
         <div class="left">
           <div>
-            <Icon name="tabler:tag" class="me-1" size="1.2rem"></Icon>桌号:</div>
+            <Icon name="tabler:flower" class="me-1" size="1.2rem"></Icon>桌号:</div>
           </div>
         <div class="d-flex flex-wrap gap-2">
           <template v-for="item in 31">

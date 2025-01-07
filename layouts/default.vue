@@ -18,7 +18,7 @@
 <style lang="scss" scoped>
   .container-xxl {
     min-height: calc(100vh - 100px);
-    padding-top: 80px;
+    // padding-top: 80px;
   }
 
 </style>
