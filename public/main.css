@@ -1,0 +1,167 @@
+:root, [data-bs-theme=dark]{
+  --bs-emphasis-color: rgba(255, 255, 255, .8);
+  --bs-body-bg: #2e313a;
+  --bs-danger:#db4d5a;
+  --bs-danger-rgb: 219, 77, 90;
+  --bs-tertiary-bg: #212226;
+}
+
+:root, [data-bs-theme=light]{
+  --bs-tertiary-bg: #f0f0f0;
+  --bs-body-bg: #fff;
+  --bs-danger:#dc3545;
+  --bs-danger-rgb: 220,53,69;
+  --bs-emphasis-color :#141824;
+}
+
+a {
+    text-decoration: none !important;
+    color: var(--bs-emphasis-color);
+}
+
+a:hover {
+    color: var(--bs-primary);
+}
+
+li, ol, ul {
+    list-style: none outside none;
+}
+
+body {
+    color: var(--bs-secondary-color);
+    /* background-color: var(--bs-tertiary-bg); */
+    /* background-color: var(--bs-body-bg); */
+    font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: url("/bg.svg");
+    background-size: cover;
+}
+
+body[data-bs-theme=dark]{
+  background: none;
+  background-color: var(--bs-tertiary-bg);
+}
+
+.octicon--feed-person-16 {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16m.847-8.145a2.502 2.502 0 1 0-1.694 0C5.471 8.261 4 9.775 4 11c0 .395.145.995 1 .995h6c.855 0 1-.6 1-.995c0-1.224-1.47-2.74-3.153-3.145'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+.card {
+    /* box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.0784313725); */
+    /* border: none; */
+    color: var(--bs-secondary-color);
+    /* border-radius: 0; */
+}
+
+.card-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bs-emphasis-color);
+  background-color: transparent;
+  border-bottom: none;
+
+  .btn{
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 5px;
+      font-size: 1.2em;
+    }
+  }
+}
+
+.card-footer {
+  background-color: transparent;
+  border-top: none;
+}
+
+.btn{
+  &.btn-page{
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #6c757d;
+    --bs-btn-border-color: #6c757d;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #5c636a;
+    --bs-btn-hover-border-color: #565e64;
+    --bs-btn-focus-shadow-rgb: 130, 138, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #565e64;
+    --bs-btn-active-border-color: #51585e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #6c757d;
+    --bs-btn-disabled-border-color: #6c757d;
+
+    color: var(--bs-btn-bg);
+    background-color: var(--bs-body-bg);
+  }
+  &.btn-page.active{
+      color: var(--bs-btn-active-color);
+      background-color: var(--bs-btn-active-bg);
+      border-color: var(--bs-btn-active-border-color);
+  }
+  &.btn-page:hover {
+      color: var(--bs-btn-hover-color) !important;
+      background-color: var(--bs-btn-hover-bg) !important;
+      border-color: var(--bs-btn-hover-border-color) !important;
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.modal{
+  --bs-modal-width: 400px;
+  --bs-modal-zindex: 1200;
+
+  background-color: hsl(240 3.8% 46.1% / 33%) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+.modal-title{
+  color: var(--bs-emphasis-color);
+}
+
+
+.modal-content{
+  border-radius: 15px !important;
+  padding: 10px 15px !important;
+}
+
+.text-gradient-1 {
+  background: linear-gradient(89.87deg, #903cfa 11.17%, #3c5afa 41.67%, #24b8e7 76.45%, #24d1c7 102.66%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-highlight{
+  color:#3c5afa;
+}
+
+.offcanvas, .offcanvas-lg{
+  --bs-offcanvas-width: 80%;
+}
+
+.toast-container {
+  position: fixed !important;
+}
+
+@media (max-width: 576px) { 
+  /* .card {
+    --bs-card-title-padding-x: 0.5rem;
+    --bs-card-cap-padding-x: 0.5rem;
+    --bs-card-spacer-x: 0.7rem;
+  } */
+ }
