@@ -1,12 +1,11 @@
 <template>
 <div class="i-container">
 
-  <div class="py-5 px-3 title">
+  <div class="py-3 px-3 title">
     GSC IT Development & Test Center<br>2025 Annual Dinner
   </div>
 
-
-  <div class="d-flex justify-content-center mt-5">
+  <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-primary" @click="onClickUpload">上传照片</button>
   </div>
   
@@ -18,7 +17,7 @@
     <button class="btn btn-info" @click="onClickVote">排行版</button>
   </div>
 
-  <div class="d-flex justify-content-center mt-3">
+  <div class="d-flex justify-content-center mt-3 mb-5">
     <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
   </div>
 
