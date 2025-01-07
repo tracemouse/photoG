@@ -14,8 +14,9 @@
 
 </template>
 <script setup lang="ts"> 
-import 'vue-cropper/dist/index.css'
-import { VueCropper }  from "vue-cropper";
+ 
+ const route = useRoute()
+const id:number = parseInt(route.params.id as string)
 
 // const snackbar = useSnackbar()
 let loading = ref(false)

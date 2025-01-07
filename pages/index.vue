@@ -12,7 +12,7 @@
 <script setup lang="ts"> 
 
 const onClickUpload = ()=>{
-  navigateTo("/upload")
+  navigateTo("/upload/1")
 }
 
 const onClickVote = ()=>{
