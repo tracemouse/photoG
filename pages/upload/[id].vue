@@ -1,8 +1,15 @@
 <template>
+  <nav aria-label="breadcrumb" class="border-bottom">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><NuxtLink to="/">首页</NuxtLink ></li>
+      <li class="breadcrumb-item">照片上传</li>
+      <li class="breadcrumb-item">第 {{id}} 桌</li>
+    </ol>
+  </nav>
 
-<div class="d-flex justify-content-center">
+<!-- <div class="d-flex justify-content-center mt-3">
   <button class="btn btn-primary" @click="onClickBack()">返回首页</button>
-</div>
+</div> -->
 
 <div class="d-flex justify-content-center mt-3">
   <button class="btn btn-danger" @click="open">选择照片</button>
@@ -15,7 +22,7 @@
 </template>
 <script setup lang="ts"> 
  
- const route = useRoute()
+const route = useRoute()
 const id:number = parseInt(route.params.id as string)
 
 // const snackbar = useSnackbar()
@@ -124,8 +131,48 @@ const blob2Base64 = (blob:any)=>{
     reader.onload = function (e) {
       base64.value = this.result as string
       console.log(base64.value)
+      uploadBase64(base64.value)
     }
 }
+
+
+//upload binary
+const uploadBlob = (blob:Blob) =>{
+    const formData = new FormData();
+    formData.append('file', blob);
+    $fetch('/api/member/avatar/upload', {
+        method: 'POST',
+        body: formData
+    }).then((data)=>{
+ 
+        loading.value = false
+ 
+    }).catch((error)=>{
+        // popApiError(error)
+        loading.value = false
+        // snackbar.add(snackbarApiError(error))
+    })
+}
+
+//upload base64
+const uploadBase64 = (base64:string) =>{
+    $fetch('/api/upload', {
+        method: 'POST',
+        body: {
+            id: id,
+            fileData: base64
+        }
+    }).then((data)=>{
+ 
+        loading.value = false
+ 
+    }).catch((error)=>{
+        // popApiError(error)
+        loading.value = false
+        // snackbar.add(snackbarApiError(error))
+    })
+}
+
 
 const onClickBack = ()=>{
   navigateTo("/")
