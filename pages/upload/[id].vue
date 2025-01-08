@@ -7,7 +7,7 @@
 <div class="cropper-content mt-3" v-if="base64">
   <NuxtImg class="u-img" :src="base64" />
 </div>
-<div class="mt-3 d-flex justify-content-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
+<div class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
     <Icon name="tabler:photo-up" class="me-1" size="2rem"></Icon>
   </div>
@@ -249,5 +249,9 @@ const onClickBack = ()=>{
     display: flex;
     justify-content: center;
 } 
+
+.upload-box {
+  border: dashed 1px;
+}
 
 </style>

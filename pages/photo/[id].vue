@@ -2,7 +2,7 @@
 
 <Table></Table>
 
-<div class="card mt-3">
+<div class="card mt-3 position-relative">
 <div class="card-header">
   <div>
     第 {{id}} 桌
@@ -12,14 +12,22 @@
 </div>
 <div class="card-body d-flex justify-content-center">
   <NuxtImg class="u-img" :src="base64" />
+  <div class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+    <div>
+      <Icon name="tabler:photo-up" class="me-1" size="2rem"></Icon>
+    </div>
+    <div>
+      未上传图片
+    </div>
+  </div>
 </div>
-<div class="card-footer">
-  <button class="btn btn-light d-flex align-items-center" @click="onClickVote()" v-if="!useStore().vote.includes(id)">
+<div class="point-box" v-if="base64">
+  <div class="d-flex align-items-center" @click="onClickVote()" v-if="!useStore().vote.includes(id)">
     <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
-  </button>
-  <button class="btn btn-light d-flex align-items-center" disabled v-if="useStore().vote.includes(id)">
+  </div>
+  <div class="d-flex align-items-center" disabled v-if="useStore().vote.includes(id)">
     <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
-  </button>
+  </div>
 </div>
 </div>
 
@@ -97,8 +105,10 @@ const onClickVote = ()=>{
   color: black;
  }
  
- .btn {
-    width: 250px;
+ .point-box {
+    position: absolute;
+    top: var(--bs-card-cap-padding-y);
+    right: var(--bs-card-cap-padding-x);
  }
 
  .u-img{
