@@ -98,10 +98,16 @@ const showError = ()=>{
 }
 
 const showSucc = (seat: string)=>{
+  let text = '';
+  if(seat){
+    text = "您的座位是："+ seat;
+  }else {
+    text = "未找到座位";
+  }
 
   $swal.fire({
     icon: "success",
-    title: "您的座位是："+ seat,
+    title: text,
   });
 }
 
@@ -128,19 +134,22 @@ const onClickSearchSeat = async () => {
   if (name) {
     useLoading().value = true
 
-    $fetch('/api/vote',{
+    $fetch('/api/seat',{
       query:{
-        searchValue: window.btoa(unescape(encodeURIComponent(name)))
+        searchValue: name
       }
-    }).then((data)=>{ 
-
-      consoele.log(data)
-
-      showSucc('')
+    }).then((data)=>{
+      if(data.items.length > 0){
+        let items = data.items;
+        let seat = items[0].tableId + '桌' + items[0].seatId + '号'
+        showSucc(seat)
+      }else {
+        showSucc('');
+      }
       useLoading().value = false
 
     }).catch((error)=>{
-
+      console.log(error)
       useLoading().value = false
       showError()
 
