@@ -5,10 +5,12 @@
     GSC IT Development & Test Center<br>2025 Annual Dinner
   </div>
 
-  <div class="my-2 px-2 d-flex justify-content-between align-items-center">
-      <div>定位</div>
+  <div class="my-2 px-3 d-flex justify-content-between align-items-center">
+      <a href="https:////uri.amap.com/marker?name=佳宁娜广场4楼&position=114.119464,22.536823">
+        <Icon name="tabler:map-pin-filled" size="2rem"></Icon>
+      </a>
       <a class="d-flex align-items-center cursor-pointer" href="https://uri.amap.com/navigation?from=&to=114.119464,22.536823,佳宁娜广场4楼&mode=walk&src=&callnative=0">
-          <Icon name="tabler:walk" class="me-1" size="2rem"></Icon>
+        <Icon name="tabler:walk" size="2rem"></Icon>
       </a>
   </div>
 
