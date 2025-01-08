@@ -27,7 +27,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-3">
-    <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
+    <button class="btn btn-warning" @click="onClickSeatplan">座位表</button>
   </div>
 
   <div class="d-flex justify-content-center mt-3 mb-5">
