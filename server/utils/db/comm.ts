@@ -104,7 +104,7 @@ export async function commDB(supabase:SupabaseClient){
     return (res.count)?res.count:0
   }
 
-  async function getList(table:string, page:number, limit:number,sortBy:string='', sortType:string='', fields: Record<string,any>={}):Promise<unknown>{
+  async function getList(table:string, page:number, limit:number,sortBy:string='', sortType:string='', searchValue:string='', fields: Record<string,any>={}):Promise<unknown>{
     let from = (page - 1) * limit
     let to = page * limit - 1
     let orderby
@@ -119,6 +119,12 @@ export async function commDB(supabase:SupabaseClient){
       for(let key in fields){
         query.eq(key, fields[key])
       }
+    }
+
+    if(searchValue){
+      let searchTerm = `%${searchValue}%`
+      query =  query
+      .or(`name.ilike.${searchTerm}`)
     }
 
     if(sortBy){

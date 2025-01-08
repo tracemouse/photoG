@@ -144,6 +144,9 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxt/image", "@nuxt/icon", // "@nuxtjs/robots",
   '@nuxtjs/supabase', // "@nuxt/scripts",
-  '@vueuse/nuxt'],
+  '@vueuse/nuxt',
+  "@pinia/nuxt",
+  "@pinia-plugin-persistedstate/nuxt",
+  ],
   compatibilityDate: '2024-07-19'
 });

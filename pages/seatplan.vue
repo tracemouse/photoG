@@ -5,7 +5,7 @@
   座位分布图
 </div>
 <div class="card-body d-flex justify-content-center">
-  <NuxtImg src="/seatplan.jpg" />
+  <img src="/seatplan.jpg" />
 </div>
 </div>
 
@@ -16,5 +16,8 @@ const { $swal } = useNuxtApp()
 </script>
 
 <style lang="scss" scoped>
-  
+
+img{
+  max-width: 95%;
+}
 </style>

@@ -4,7 +4,7 @@
     <div class="title py-3 px-2">
       GSC IT Development & Test Center - 2025 Annual Dinner
     </div>
-    <div class="d-flex justify-content-center pb-3">
+    <div class="d-flex justify-content-center align-items-center pb-3">
       <button class="btn btn-dark btn-back px-3" @click="onClickBack()"><Icon name="tabler:chevron-left" class="me-1" size="1.2rem"></Icon>返回首页</button>
     </div>
   </div>
