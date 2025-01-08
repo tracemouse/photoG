@@ -5,7 +5,7 @@
 </div>
 
 <div class="cropper-content mt-3" v-if="base64">
-  <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
+  <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
 <div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
@@ -26,7 +26,7 @@
 </div>
 
 <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-  <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+  <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
   <img :src="base64">
 </div>
 
@@ -230,6 +230,17 @@ const showSucc = ()=>{
 
 const onClickBack = ()=>{
   navigateTo("/")
+}
+
+const onClickShowImgPopup = () => {
+  showImg.value = true
+  document.body.style.overflow = 'hidden'
+  
+}
+
+const onClickHideImgPopup = () => {
+  showImg.value = false
+  document.body.style.overflow = ''
 }
 
 </script>

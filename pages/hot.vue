@@ -1,6 +1,14 @@
 <template>
+
+    <div class="mb-2 d-flex justify-content-between align-items-center">
+        <div>轮播</div>
+        <div class="d-flex align-items-center cursor-pointer" @click="refreshList()">
+            <Icon name="tabler:refresh" class="me-1" size="1.2rem"></Icon> 刷新
+        </div>
+    </div>
+
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-3">
-      <CardImg v-for="item in photos" :item="item" @clickImg="showImg($event)"/>
+      <CardImg v-for="item in photos" :item="item" @clickImg="onClickShowImgPopup($event)"/>
     </div>
 
     <template v-if="totalCnt == 0">
@@ -10,7 +18,7 @@
     </template>
 
     <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-        <Icon name="tabler:xbox-x" @click="showImgSrc=''" class="me-1 text-white x-btn" size="3rem"></Icon>
+        <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
         <img :src="showImgSrc">
     </div>
 
@@ -39,13 +47,37 @@ const { status, data } = await useFetch("/api/list", {
 photos.value = data.value.items as photo[]
 totalCnt.value = data.value.count as number
 
-const showImg = (id: any) => {
+const refreshList = () => {
+    useLoading().value = true
+
+    
+    $fetch('/api/list',{
+        query:{
+            sortBy: 'point',
+            sortType: 'desc',
+        }
+    }).then((data)=>{
+        photos.value = data.value.items as photo[]
+        totalCnt.value = data.value.count as number
+        useLoading().value = false
+    }).catch((error)=>{
+        useLoading().value = false
+    })
+};
+
+const onClickShowImgPopup = (id: any) => {
     photos.value .find((item: any) => {
         if(item.id == id){
             showImgSrc.value = item.url;
+            document.body.style.overflow = 'hidden'
             return true;
         }
     })
+}
+
+const onClickHideImgPopup = () => {
+    showImgSrc.value = '';
+    document.body.style.overflow = ''
 }
 
 </script>

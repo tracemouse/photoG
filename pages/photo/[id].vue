@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="card-body d-flex justify-content-center">
-    <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
+    <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
     <div style="padding: 5rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
@@ -22,15 +22,15 @@
     </div>
   </div>
   <div class="point-box" v-if="base64">
-    <div class="d-flex align-items-center" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
       <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
     </div>
-    <div class="d-flex align-items-center" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
       <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
     </div>
   </div>
   <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-    <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+    <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
     <img :src="base64">
   </div>
 </div>
@@ -117,6 +117,17 @@ const onClickVote = (likes: boolean)=>{
     useLoading().value = false
     showError(likes)
   })
+}
+
+const onClickShowImgPopup = () => {
+  showImg.value = true
+  document.body.style.overflow = 'hidden'
+  
+}
+
+const onClickHideImgPopup = () => {
+  showImg.value = false
+  document.body.style.overflow = ''
 }
 
 </script>

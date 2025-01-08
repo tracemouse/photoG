@@ -4,7 +4,7 @@
 	<div class="col">
 		<div class="card-container rounded-1">
 			<div class="img-box rounded-1">
-				<NuxtImg :src="`${props.item.url}`" class="w-100" placeholder="/poster.jpg" @click="onClickImg(props.item.id)"></NuxtImg>
+				<NuxtImg :src="`${props.item.url}`" class="w-100" placeholder="/apple-icon.png" @click="onClickImg(props.item.id)"></NuxtImg>
 			</div>
 			<div class="d-flex justify-content-between pt-3 pb-2">
 				<div class="title px-2">
@@ -145,6 +145,7 @@ const onClickVote = (likes: boolean)=>{
         white-space: nowrap;
         text-overflow: ellipsis;
 		color: var(--bs-secondary-color);
+		cursor: pointer;
 	}
 }
 
