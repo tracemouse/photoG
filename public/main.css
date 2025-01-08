@@ -159,7 +159,7 @@ body[data-bs-theme=dark]{
 }
 
 #swal2-select{
-  border: 1px solid red;
+  border: 1px solid blue;
   border-radius: 8px;
 }
 
