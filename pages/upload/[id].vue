@@ -4,6 +4,9 @@
   第 {{id}} 桌
 </div>
 
+<div class="cropper-content mt-3">
+  <img class="u-img" :src="templateImg" @click="onClickShowImgPopup()"/>
+</div>
 <div class="cropper-content mt-3" v-if="base64">
   <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
@@ -25,8 +28,9 @@
   <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
 </div>
 
-<div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+<div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
   <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
+  <img :src="templateImg" class="mb-2">
   <img :src="base64">
 </div>
 
@@ -47,6 +51,24 @@ let loading = ref(false)
 let selected = ref(false)
 let base64 = ref("")
 let showImg = ref(false)
+let templateImg = ref("")
+
+let template = [
+  [1,2],
+  [3,4,5,6],
+  [7,8,9,10],
+  [11,12,13,14],
+  [15,16,17,18,19],
+  [20,21,22,23],
+  [24,25,26,27],
+  [28,29,30,31]
+]
+template.find((item)=>{
+  if(item.includes(id)){
+    templateImg.value = `/emoj/${item.join('.')}.jpg`
+    return true;
+  }
+})
 
 const { data: photo } = await useFetch("/api/get", {
         query: {
@@ -276,7 +298,7 @@ const onClickHideImgPopup = () => {
 
  .u-img{
   max-width: 95%;
-  max-height: 550px;
+  max-height: 400px;
   cursor: pointer;
  }
  
@@ -303,7 +325,7 @@ const onClickHideImgPopup = () => {
 
   img {
     max-width: 85%;
-    max-height: 85%;
+    max-height: 42.5%;
   }
 }
 
