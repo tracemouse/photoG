@@ -7,9 +7,9 @@
 <div class="cropper-content mt-3" v-if="base64">
   <NuxtImg class="u-img" :src="base64" />
 </div>
-<div class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
+<div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
-    <Icon name="tabler:photo-up" class="me-1" size="2rem"></Icon>
+    <Icon name="tabler:photo-up" class="me-1" size="3.5rem"></Icon>
   </div>
   <div>
     点击上传照片
