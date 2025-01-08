@@ -3,32 +3,36 @@
 <Table></Table>
 
 <div class="card mt-3 position-relative">
-<div class="card-header">
-  <div>
-    第 {{id}} 桌
-  </div>
-  <div>
-  </div>
-</div>
-<div class="card-body d-flex justify-content-center">
-  <NuxtImg class="u-img" :src="base64" />
-  <div style="padding: 5rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+  <div class="card-header">
     <div>
-      <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
+      第 {{id}} 桌
     </div>
     <div>
-      尚未上传照片
     </div>
   </div>
-</div>
-<div class="point-box" v-if="base64">
-  <div class="d-flex align-items-center" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
-    <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
+  <div class="card-body d-flex justify-content-center">
+    <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
+    <div style="padding: 5rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+      <div>
+        <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
+      </div>
+      <div>
+        尚未上传照片
+      </div>
+    </div>
   </div>
-  <div class="d-flex align-items-center" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
-    <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
+  <div class="point-box" v-if="base64">
+    <div class="d-flex align-items-center" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
+      <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
+    </div>
+    <div class="d-flex align-items-center" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
+      <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
+    </div>
   </div>
-</div>
+  <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+    <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+    <img :src="base64">
+  </div>
 </div>
 
 </template>
@@ -44,6 +48,7 @@ let loading = ref(false)
 let selected = ref(false)
 let base64 = ref("")
 let point = ref(0)
+let showImg = ref(false)
 
 const { data: photo } = await useFetch("/api/get", {
         query: {
@@ -132,6 +137,8 @@ const onClickVote = (likes: boolean)=>{
 
  .u-img{
   max-width: 95%;
+  max-height: 550px;
+  cursor: pointer;
  }
  
  .cropper-content{
@@ -139,5 +146,22 @@ const onClickVote = (likes: boolean)=>{
     display: flex;
     justify-content: center;
 } 
+
+.img-box { 
+  background-color: rgba(113, 113, 113, 0.33);
+  backdrop-filter: blur(10px);
+  
+  .x-btn {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 85%;
+    max-height: 85%;
+  }
+}
 
 </style>
