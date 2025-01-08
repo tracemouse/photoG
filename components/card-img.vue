@@ -4,7 +4,7 @@
 	<div class="col">
 		<div class="card-container rounded-1">
 			<div class="img-box rounded-1">
-				<NuxtImg :src="`${props.item.url}`" class="w-100" placeholder="/poster.jpg"></NuxtImg>
+				<NuxtImg :src="`${props.item.url}`" class="w-100" placeholder="/poster.jpg" @click="onClickImg(props.item.id)"></NuxtImg>
 			</div>
 			<div class="d-flex justify-content-between pt-3 pb-2">
 				<div class="title px-2">
@@ -34,31 +34,37 @@ const props = defineProps({
   }
 });
 
-const showError = (likes: boolean)=>{
+const emit = defineEmits(['clickImg'])
 
-let text = '抱歉，点赞失败，请稍候再试！'
-if(!likes) {
-	let text = '抱歉，取消点赞失败，请稍候再试！'
+const onClickImg = (id) => {
+	emit('clickImg', id)
 }
 
-$swal.fire({
-	icon: "error",
-	title: "Oops...",
-	text: text,
-});
+const showError = (likes: boolean)=>{
+
+	let text = '抱歉，点赞失败，请稍候再试！'
+	if(!likes) {
+		let text = '抱歉，取消点赞失败，请稍候再试！'
+	}
+
+	$swal.fire({
+		icon: "error",
+		title: "Oops...",
+		text: text,
+	});
 }
 
 const showSucc = (likes: boolean)=>{
 
-let text = "点赞成功！"
-if(!likes) {
-	text = "取消点赞成功！"
-}
+	let text = "点赞成功！"
+	if(!likes) {
+		text = "取消点赞成功！"
+	}
 
-$swal.fire({
-	icon: "success",
-	title: text,
-});
+	$swal.fire({
+		icon: "success",
+		title: text,
+	});
 }
 
 const onClickVote = (likes: boolean)=>{

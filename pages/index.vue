@@ -17,8 +17,12 @@
     <button class="btn btn-info" @click="onClickHot">排行榜</button>
   </div>
 
-  <div class="d-flex justify-content-center mt-3 mb-5">
+  <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3 mb-5">
+    <button class="btn btn-warning" @click="onClickSearchSeat">查询座位</button>
   </div>
 
   <!-- <Footer/> -->
@@ -83,6 +87,76 @@ const onClickHot = ()=>{
   navigateTo('/hot')
 }
 
+const showError = ()=>{
+
+  $swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: '抱歉，查询失败，请稍候再试！',
+  });
+
+}
+
+const showSucc = (seat: string)=>{
+  let text = '';
+  if(seat){
+    text = "您的座位是："+ seat;
+  }else {
+    text = "未找到座位";
+  }
+
+  $swal.fire({
+    icon: "success",
+    title: text,
+  });
+}
+
+const onClickSearchSeat = async () => {
+  const { value: name } = await $swal.fire({
+    title: "查询座位",
+    input: "text",
+    inputPlaceholder: "请输入姓名",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        if (value) {
+          resolve();
+        } else {
+          resolve("请输入");
+        }
+      });
+    }
+  });
+  if (name) {
+    useLoading().value = true
+
+    $fetch('/api/seat',{
+      query:{
+        searchValue: name
+      }
+    }).then((data)=>{
+      if(data.items.length > 0){
+        let items = data.items;
+        let seat = items[0].tableId + '桌' + items[0].seatId + '号'
+        showSucc(seat)
+      }else {
+        showSucc('');
+      }
+      useLoading().value = false
+
+    }).catch((error)=>{
+      console.log(error)
+      useLoading().value = false
+      showError()
+
+    })
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -92,7 +166,7 @@ const onClickHot = ()=>{
     color: white;
 
     .title{
-      background: url("/bg1.jpg");
+      background: url("/bg.jpg");
       background-size: cover;
       font-size: 2rem;
       font-weight: 700;

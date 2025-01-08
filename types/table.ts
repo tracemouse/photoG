@@ -4,3 +4,9 @@ export interface photo {
   point: number,        //点赞数
   created_at: string|Date,         //记录创建时间
 }
+
+export interface seatplan {
+  name: string,           //姓名
+  tableId: string,          //桌号
+  seatId: string,        //座位号
+}
