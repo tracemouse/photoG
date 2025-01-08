@@ -83,8 +83,7 @@ if(photo.value){
   base64.value = photo.value.url
 }
 
-
-const maxWidth = 1500;
+const maxWidth = 800;
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*', // Set to accept only image files
   directory: false, // Select directories instead of files if set true
