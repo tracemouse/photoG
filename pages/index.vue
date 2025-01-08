@@ -22,7 +22,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-3 mb-5">
-    <button class="btn btn-warning" @click="onClickSearchSeat">查询座位</button>
+    <button class="btn btn-success" @click="onClickSearchSeat">查询座位</button>
   </div>
 
   <!-- <Footer/> -->
@@ -99,14 +99,17 @@ const showError = ()=>{
 
 const showSucc = (seat: string)=>{
   let text = '';
+  let icon = '';
   if(seat){
-    text = "您的座位是："+ seat;
+    text = "您的座位位于"+ seat;
+    icon = "success"
   }else {
-    text = "未找到座位";
+    text = "抱歉，未查询到您座位，请联系活动组委！";
+    icon = "error"
   }
 
   $swal.fire({
-    icon: "success",
+    icon: icon,
     title: text,
   });
 }
@@ -141,7 +144,7 @@ const onClickSearchSeat = async () => {
     }).then((data)=>{
       if(data.items.length > 0){
         let items = data.items;
-        let seat = items[0].tableId + '桌' + items[0].seatId + '号'
+        let seat = `第${items[0].tableId.replace("Table", '').trim()}桌`
         showSucc(seat)
       }else {
         showSucc('');
