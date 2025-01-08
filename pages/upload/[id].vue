@@ -5,7 +5,7 @@
 </div>
 
 <div class="cropper-content mt-3" v-if="base64">
-  <NuxtImg class="u-img" :src="base64" />
+  <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
 </div>
 <div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
@@ -25,6 +25,11 @@
   <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
 </div>
 
+<div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+  <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+  <img :src="base64">
+</div>
+
 <!-- <div class="d-flex justify-content-center mt-3">
   <button class="btn btn-dark" @click="onClickBack()">返回首页</button>
 </div> -->
@@ -41,6 +46,7 @@ let loading = ref(false)
  
 let selected = ref(false)
 let base64 = ref("")
+let showImg = ref(false)
 
 const { data: photo } = await useFetch("/api/get", {
         query: {
@@ -242,6 +248,8 @@ const onClickBack = ()=>{
 
  .u-img{
   max-width: 95%;
+  max-height: 550px;
+  cursor: pointer;
  }
  
  .cropper-content{
@@ -252,6 +260,23 @@ const onClickBack = ()=>{
 
 .upload-box {
   border: dashed 1px;
+}
+
+.img-box { 
+  background-color: rgba(113, 113, 113, 0.33);
+  backdrop-filter: blur(10px);
+  
+  .x-btn {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 85%;
+    max-height: 85%;
+  }
 }
 
 </style>

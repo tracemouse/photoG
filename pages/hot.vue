@@ -9,9 +9,9 @@
       </div>
     </template>
 
-    <div v-if="showImgSrc" style="background-color: rgb(0,0,0, 0.35);" class="position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-        <Icon name="tabler:x" @click="showImgSrc=''" class="me-1 text-white x-btn" size="3.5rem"></Icon>
-        <img style="max-width: 85%;max-height: 85%;" :src="showImgSrc">
+    <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+        <Icon name="tabler:xbox-x" @click="showImgSrc=''" class="me-1 text-white x-btn" size="3rem"></Icon>
+        <img :src="showImgSrc">
     </div>
 
 </template>
@@ -72,11 +72,22 @@ const showImg = (id: any) => {
     justify-content: center;
 } 
 
-.x-btn {
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    cursor: pointer;
+.img-box { 
+    background-color: rgba(113, 113, 113, 0.33);
+    backdrop-filter: blur(10px);
+    
+    .x-btn {
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 85%;
+        max-height: 85%;
+    }
 }
+
 
 </style>
