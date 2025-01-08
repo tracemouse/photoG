@@ -17,8 +17,9 @@
       </div>
     </template>
 
-    <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+    <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
         <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
+        <img class="mb-2" :src="templateImgSrc">
         <img :src="showImgSrc">
     </div>
 
@@ -35,6 +36,7 @@ const route = useRoute()
 let photos = ref<photo[]>()
 let totalCnt = ref<number>(0)
 let showImgSrc = ref('');
+let templateImgSrc = ref('');
 let showCarousel = ref(false);
 
 const { status, data } = await useFetch("/api/list", {
@@ -73,9 +75,11 @@ const refreshList = () => {
     })
 };
 
-const onClickShowImgPopup = (id: any) => {
+const onClickShowImgPopup = (event: any) => {
+    let {templateImg, id} = event;
     photos.value .find((item: any) => {
         if(item.id == id){
+            templateImgSrc.value = templateImg;
             showImgSrc.value = item.url;
             document.body.style.overflow = 'hidden'
             return true;
@@ -125,7 +129,7 @@ const onClickHideImgPopup = () => {
 
     img {
         max-width: 85%;
-        max-height: 85%;
+        max-height: 42.5%;
     }
 }
 
