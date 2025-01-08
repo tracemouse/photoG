@@ -166,7 +166,7 @@ const onClickSearchSeat = async () => {
     color: white;
 
     .title{
-      background: url("/bg1.jpg");
+      background: url("/bg.jpg");
       background-size: cover;
       font-size: 2rem;
       font-weight: 700;

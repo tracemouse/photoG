@@ -4,12 +4,12 @@ export default defineNuxtConfig({
   alias: {
     cookie: "cookie"
   },
-  site: {
-    url: process.env.SITE_URL,
-    name: process.env.SITE_NAME,
-    description: process.env.SITE_DESCRIPTION,
-    defaultLocale: 'zh', // not needed if you have @nuxtjs/i18n installed
-  },
+  // site: {
+  //   url: process.env.SITE_URL,
+  //   name: process.env.SITE_NAME,
+  //   description: process.env.SITE_DESCRIPTION,
+  //   defaultLocale: 'zh', // not needed if you have @nuxtjs/i18n installed
+  // },
   runtimeConfig: {
     api: {
       SRC_URL: process.env.SRC_URL,

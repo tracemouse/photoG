@@ -5,9 +5,6 @@
         <slot></slot>
     </div>
 
-    <!-- <ClientOnly>
-      <FloatBar></FloatBar>
-    </ClientOnly> -->
   <Footer/>
 </template>
 
