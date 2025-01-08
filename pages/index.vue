@@ -17,8 +17,12 @@
     <button class="btn btn-info" @click="onClickHot">排行榜</button>
   </div>
 
-  <div class="d-flex justify-content-center mt-3 mb-5">
+  <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3 mb-5">
+    <button class="btn btn-warning" @click="onClickSearchSeat">查询座位</button>
   </div>
 
   <!-- <Footer/> -->
@@ -81,6 +85,67 @@ const onClickSeatplan = ()=>{
 
 const onClickHot = ()=>{
   navigateTo('/hot')
+}
+
+const showError = ()=>{
+
+  $swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: '抱歉，查询失败，请稍候再试！',
+  });
+
+}
+
+const showSucc = ()=>{
+
+  $swal.fire({
+    icon: "success",
+    title: "",
+  });
+}
+
+const onClickSearchSeat = async () => {
+  const { value: name } = await $swal.fire({
+    title: "查询座位",
+    input: "text",
+    inputPlaceholder: "请输入姓名",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        if (value) {
+          resolve();
+        } else {
+          resolve("请输入");
+        }
+      });
+    }
+  });
+  if (name) {
+    useLoading().value = true
+
+    $fetch('/api/vote',{
+      query:{
+        searchValue: window.btoa(unescape(encodeURIComponent(name)))
+      }
+    }).then((data)=>{ 
+
+      consoele.log(data)
+
+      showSucc()
+      useLoading().value = false
+
+    }).catch((error)=>{
+
+      useLoading().value = false
+      showError()
+
+    })
+  }
 }
 
 </script>
