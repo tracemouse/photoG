@@ -97,11 +97,11 @@ const showError = ()=>{
 
 }
 
-const showSucc = ()=>{
+const showSucc = (seat: string)=>{
 
   $swal.fire({
     icon: "success",
-    title: "",
+    title: "您的座位是："+ seat,
   });
 }
 
@@ -136,7 +136,7 @@ const onClickSearchSeat = async () => {
 
       consoele.log(data)
 
-      showSucc()
+      showSucc('')
       useLoading().value = false
 
     }).catch((error)=>{
