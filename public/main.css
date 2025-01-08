@@ -158,6 +158,11 @@ body[data-bs-theme=dark]{
   position: fixed !important;
 }
 
+#swal2-select{
+  border: 1px solid red;
+  border-radius: 8px;
+}
+
 @media (max-width: 576px) { 
   /* .card {
     --bs-card-title-padding-x: 0.5rem;
