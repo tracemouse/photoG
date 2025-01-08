@@ -5,6 +5,13 @@
     GSC IT Development & Test Center<br>2025 Annual Dinner
   </div>
 
+  <div class="my-2 px-2 d-flex justify-content-between align-items-center">
+      <div>定位</div>
+      <a class="d-flex align-items-center cursor-pointer" href="https://uri.amap.com/navigation?from=&to=114.119464,22.536823,佳宁娜广场4楼&mode=walk&src=&callnative=0">
+          <Icon name="tabler:walk" class="me-1" size="2rem"></Icon>
+      </a>
+  </div>
+
   <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-primary" @click="onClickUpload">上传照片</button>
   </div>

@@ -1,7 +1,7 @@
 <template>
 
     <div class="mb-2 d-flex justify-content-between align-items-center">
-        <div>轮播</div>
+        <div @click="showCarousel = true">轮播</div>
         <div class="d-flex align-items-center cursor-pointer" @click="refreshList()">
             <Icon name="tabler:refresh" class="me-1" size="1.2rem"></Icon> 刷新
         </div>
@@ -22,6 +22,8 @@
         <img :src="showImgSrc">
     </div>
 
+    <Carousel :show="showCarousel" :list="photos" @hide="showCarousel = false"></Carousel>
+
 </template>
 <script setup lang="ts">
 import type { photo } from '~/types/table';
@@ -33,6 +35,7 @@ const route = useRoute()
 let photos = ref<photo[]>()
 let totalCnt = ref<number>(0)
 let showImgSrc = ref('');
+let showCarousel = ref(false);
 
 const { status, data } = await useFetch("/api/list", {
     query: {
@@ -57,10 +60,15 @@ const refreshList = () => {
             sortType: 'desc',
         }
     }).then((data)=>{
-        photos.value = data.value.items as photo[]
-        totalCnt.value = data.value.count as number
+        
+        console.log(data)
+
+        photos.value = data.items as photo[]
+        totalCnt.value = data.count as number
+
         useLoading().value = false
     }).catch((error)=>{
+        console.log(error)
         useLoading().value = false
     })
 };

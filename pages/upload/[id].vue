@@ -87,15 +87,32 @@ const onClickSelect = ()=>{
 }
 
 const onClickDel = ()=>{
-  $fetch('/api/del',{
-    query:{
-      id: id,
+  $swal.fire({
+    title: `是否确认要删除照片?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $fetch('/api/del',{
+        query:{
+          id: id,
+        }
+      }).then((data)=>{
+        base64.value = ""
+        $swal.fire({
+          icon: "success",
+          title: "删除成功！",
+        });
+      }).catch((error)=>{
+        showError()
+      })
     }
-  }).then((data)=>{
-    base64.value = ""
-  }).catch((error)=>{
-    showError()
-  })
+  });
+  
 }
 
 //上传图片并压缩
