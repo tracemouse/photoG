@@ -14,7 +14,7 @@
   </div>
   
   <div class="d-flex justify-content-center mt-3">
-    <button class="btn btn-info" @click="onClickHot">排行版</button>
+    <button class="btn btn-info" @click="onClickHot">排行榜</button>
   </div>
 
   <div class="d-flex justify-content-center mt-3 mb-5">
