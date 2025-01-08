@@ -15,10 +15,10 @@
 </div>
 <div class="card-footer">
   <button class="btn btn-light d-flex align-items-center" @click="onClickVote()">
-    <Icon name="tabler:heart" class="me-1" size="1.2rem"></Icon> {{ point }}
+    <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
   </button>
   <button class="btn btn-light d-flex align-items-center">
-    <Icon name="tabler:heart-filled text-danger" class="me-1" size="1.2rem"></Icon> {{ point }}
+    <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
   </button>
 </div>
 </div>

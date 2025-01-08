@@ -26,6 +26,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/ant-design": "^1.2.5",
     "@iconify-json/tabler": "^1.1.118",
     "@nuxt/icon": "^1.10.3",
     "@nuxtjs/supabase": "^1.4.5",
