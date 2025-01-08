@@ -324,7 +324,7 @@ const onClickHideImgPopup = () => {
 
   img {
     max-width: 85%;
-    max-height: 42.5%;
+    max-height: 45%;
   }
 }
 

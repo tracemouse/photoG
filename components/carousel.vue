@@ -1,32 +1,33 @@
 <template>
-	<div class="popover-container" :class="{'popover-container-remove':!props.show, 'popover-container-show': props.show}">
-		<Icon name="tabler:xbox-x" @click="()=>{emit('hide')}" class="me-1 text-white x-btn" :class="{'hide': !props.show}" size="3rem"></Icon>
-		<div class="py-5 container-md fs-6" :class="{'container-hide': props.show == false}">
-			<div class="card">
-				<div class="card-body">
-					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item" :class="{'active': index == 0}" v-for="(item, index) in props.list">
-								<div class="text-center mb-2">第 {{ index +1 }} 名</div>
-								<img :src="item.url" class="d-block w-100" :alt="item.id">
-								<div class="d-flex justify-content-between mt-2">
-									<div>第 {{item.id}} 桌</div>
-									<div>获赞数 {{ item.point }}</div>
-								</div>
+	<div class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
+		<Icon name="tabler:xbox-x" @click="()=>{emit('hide')}" class="me-1 text-white x-btn" size="3rem"></Icon>
+
+		<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item text-center" :class="{'active': index == 0}" v-for="(item, index) in props.list">
+					<div>
+						<div class="d-flex flex-column align-items-center">
+							<div class="text-center mb-2 h3 fw-bold text-white">第 {{ index +1 }} 名</div>
+							<img class="mb-2" :src="getTemplateImg(item.id)"/>
+							<img :src="item.url" :alt="item.id">
+							<div class="d-flex justify-content-between mt-2 w-100 px-2 text-white">
+								<div>第 {{item.id}} 桌</div>
+								<div class="d-flex align-items-center">获赞数 <Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
 							</div>
 						</div>
-						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
 					</div>
 				</div>
 			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
+				
 	</div>
 </template>
 
@@ -45,114 +46,48 @@ const props = defineProps({
 
 const emit = defineEmits(['hide'])
 
+const getTemplateImg = (id: any) => {
+	let templateImg = '';
+	let template = [
+		[1,2],
+		[3,4,5,6],
+		[7,8,9,10],
+		[11,12,13,14],
+		[15,16,17,18,19],
+		[20,21,22,23],
+		[24,25,26,27],
+		[28,29,30,31]
+	]
+	template.find((item)=>{
+		if(item.includes(id)){
+			templateImg = `/emoj/${item.join('.')}.jpg`
+			return true;
+		}
+	})
+
+	return templateImg;
+}
+
 </script>
 
 <style lang="scss" scoped>
 
-.carousel-item img{
-	max-height: 60vh;
-}
-.x-btn {
-	position: absolute;
-	top: 2%;
-	right: 2%;
-	cursor: pointer;
+.img-box { 
+    background-color: rgba(113, 113, 113, 0.33);
+    backdrop-filter: blur(10px);
+    
+    .x-btn {
+        position: absolute;
+        top: 2%;
+        right: 2%;
+        cursor: pointer;
+				z-index: 99;
+    }
 
-	&.hide {
-		display: none;
-	}
-}
-
-.popover-container {
-	display: none;
-	position: fixed;
-	z-index: 99999;
-	inset: 0;
-	grid-template-areas:
-		"top-start top top-end"
-		"center-start center center-end"
-		"bottom-start bottom-center bottom-end";
-	height: 100%;
-	overflow-x: hidden;
-	// background: rgba(0, 0, 0, .4);
-	background-color: hsl(240 3.8% 46.1% / 33%);
-	backdrop-filter: blur(10px);
-
-}
-
-.popover-container-show {
-	display: grid;
-}
-
-.container-md {
-	grid-area: center;
-	animation: show .3s;
-}
-
-.container-hide {
-	animation: hide .3s forwards;
-}
-
-.popover-container-remove {
-	animation: remove 0.3s forwards;
-}
-
-.card {
-	border-radius: 10px;
-	border: none;
-}
-
-@keyframes show {
-	// 0% {
-	// 	opacity: 0;
-	// 	transform: translate(0, -50%) scale(0.9);
-	// }
-
-	// 100% {
-	// 	opacity: 1;
-	// 	transform: translate(0, 0) scale(1);
-	// }
-
-	0% {
-		transform: scale(0.7);
-	}
-
-	45% {
-		transform: scale(1.05);
-	}
-
-	80% {
-		transform: scale(0.95);
-	}
-
-	100% {
-		transform: scale(1);
-	}
-}
-
-@keyframes hide {
-	0% {
-		transform: scale(1);
-		opacity: 1;
-	}
-
-	100% {
-		transform: scale(0.5);
-		opacity: 0;
-	}
-}
-
-
-@keyframes remove {
-	0% {
-		display: grid;
-	}
-
-	100% {
-		background-color: hsl(240 3.8% 46.1% / 0%);
-		backdrop-filter: blur(0);
-		display: none;
-	}
+    img {
+			max-width: 85%;
+			max-height: 45vh;
+    }
 }
 
 </style>

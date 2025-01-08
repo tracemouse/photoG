@@ -23,7 +23,7 @@
         <img :src="showImgSrc">
     </div>
 
-    <Carousel :show="showCarousel" :list="photos" @hide="showCarousel = false"></Carousel>
+    <Carousel v-if="showCarousel" :list="photos" @hide="showCarousel = false"></Carousel>
 
 </template>
 <script setup lang="ts">
@@ -129,7 +129,7 @@ const onClickHideImgPopup = () => {
 
     img {
         max-width: 85%;
-        max-height: 42.5%;
+        max-height: 45%;
     }
 }
 
