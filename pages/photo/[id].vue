@@ -12,20 +12,20 @@
 </div>
 <div class="card-body d-flex justify-content-center">
   <NuxtImg class="u-img" :src="base64" />
-  <div class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+  <div style="padding: 4rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
     <div>
-      <Icon name="tabler:photo-up" class="me-1" size="2rem"></Icon>
+      <Icon name="tabler:photo-question" class="me-1" size="2rem"></Icon>
     </div>
     <div>
-      未上传图片
+      尚未上传图片
     </div>
   </div>
 </div>
 <div class="point-box" v-if="base64">
-  <div class="d-flex align-items-center" @click="onClickVote()" v-if="!useStore().vote.includes(id)">
+  <div class="d-flex align-items-center" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
     <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
   </div>
-  <div class="d-flex align-items-center" disabled v-if="useStore().vote.includes(id)">
+  <div class="d-flex align-items-center" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
     <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
   </div>
 </div>
@@ -59,39 +59,58 @@ if(photo.value){
   point.value = photo.value.point
 }
 
-const showError = ()=>{
+const showError = (likes: boolean)=>{
+
+  let text = '抱歉，点赞失败，请稍候再试！'
+  if(!likes) {
+    let text = '抱歉，取消点赞失败，请稍候再试！'
+  }
+
   $swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "抱歉，点赞失败，请稍候再试！",
+    text: text,
   });
 }
 
-const showSucc = ()=>{
+const showSucc = (likes: boolean)=>{
+
+  let text = "点赞成功！"
+  if(!likes) {
+    text = "取消点赞成功！"
+  }
+
   $swal.fire({
     icon: "success",
-    title: "点赞成功！",
+    title: text,
   });
 }
 
-const onClickVote = ()=>{
+const onClickVote = (likes: boolean)=>{
   useLoading().value = true
 
   $fetch('/api/vote',{
     query:{
       id: id,
+      likes: likes
     }
   }).then((data)=>{
-    point.value = point.value + 1
-    showSucc()
     let vote = useStore().vote
-    if(!vote) vote = []
-    vote.push(id)
+    if(likes){
+      point.value = point.value + 1
+      if(!vote) vote = []
+      vote.push(id)
+    }else {
+      point.value = point.value - 1
+      vote.splice(vote.indexOf(id),1)
+    }
     useStore().setVote(vote)
+    
+    showSucc(likes)
     useLoading().value = false
   }).catch((error)=>{
     useLoading().value = false
-    showError()
+    showError(likes)
   })
 }
 

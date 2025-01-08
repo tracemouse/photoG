@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
 	const SUPBASE_URL = useRuntimeConfig().api.SUPABASE_URL
 	const root_url = `${SUPBASE_URL}/storage/v1/object/public/`
 
-	const { id } = getQuery(event);
+	const { id, likes } = getQuery(event);
 
 	try{
 
@@ -16,7 +16,12 @@ export default eventHandler(async (event) => {
 		if(!rec){
 			useServerError().throwApiError("无效的桌号！")
 		}
-      	const data = await db.comm.increase({row_id: parseInt(id as string), x: 1})
+
+		let x = 1;
+		if(!likes){
+			x = -1;
+		}
+		const data = await db.comm.increase({row_id: parseInt(id as string), x: x})
 		return { data : data}
 
 	}catch(error){
