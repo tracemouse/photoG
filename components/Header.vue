@@ -27,7 +27,7 @@ const onClickBack = ()=>{
 <style lang="scss" scoped> 
 
 .header{
-  background: url("/bg1.jpg");
+  background: url("/bg.jpg");
   background-size: cover;
   min-width: 100vw;
 
