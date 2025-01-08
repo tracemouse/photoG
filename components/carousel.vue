@@ -7,7 +7,17 @@
 					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-inner">
 							<div class="carousel-item" :class="{'active': index == 0}" v-for="(item, index) in props.list">
+								<div class="text-center mb-2">第 {{ index +1 }} 名</div>
 								<img :src="item.url" class="d-block w-100" :alt="item.id">
+								<div class="d-flex justify-content-between mt-2">
+									<div>第 {{item.id}} 桌</div>
+									<div class="release_date px-2" v-if="!useStore().vote.includes(item.id)">
+										<Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ item.point }}
+									</div>
+									<div class="release_date px-2" v-if="useStore().vote.includes(item.id)">
+										<Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ item.point }}
+									</div>
+								</div>
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

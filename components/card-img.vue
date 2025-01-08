@@ -11,10 +11,10 @@
 				<div class="title px-2">
 					第{{ props.item.id }}桌
 				</div>
-				<div class="release_date px-2" @click="onClickVote(true)" v-if="!useStore().vote.includes(props.item.id)">
+				<div class="d-flex align-items-center px-2" @click="onClickVote(true)" v-if="!useStore().vote.includes(props.item.id)">
 					<Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ props.item.point }}
 				</div>
-				<div class="release_date px-2" @click="onClickVote(false)" v-if="useStore().vote.includes(props.item.id)">
+				<div class="d-flex align-items-center px-2" @click="onClickVote(false)" v-if="useStore().vote.includes(props.item.id)">
 					<Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ props.item.point }}
 				</div>
 			</div>
