@@ -11,12 +11,7 @@
 								<img :src="item.url" class="d-block w-100" :alt="item.id">
 								<div class="d-flex justify-content-between mt-2">
 									<div>第 {{item.id}} 桌</div>
-									<div class="release_date px-2" v-if="!useStore().vote.includes(item.id)">
-										<Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ item.point }}
-									</div>
-									<div class="release_date px-2" v-if="useStore().vote.includes(item.id)">
-										<Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ item.point }}
-									</div>
+									<div>获赞数 {{ item.point }}</div>
 								</div>
 							</div>
 						</div>
