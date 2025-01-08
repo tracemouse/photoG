@@ -12,12 +12,12 @@
 </div>
 <div class="card-body d-flex justify-content-center">
   <NuxtImg class="u-img" :src="base64" />
-  <div style="padding: 4rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+  <div style="padding: 5rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
     <div>
-      <Icon name="tabler:photo-question" class="me-1" size="2rem"></Icon>
+      <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
     </div>
     <div>
-      尚未上传图片
+      尚未上传照片
     </div>
   </div>
 </div>
@@ -105,7 +105,7 @@ const onClickVote = (likes: boolean)=>{
       vote.splice(vote.indexOf(id),1)
     }
     useStore().setVote(vote)
-    
+
     showSucc(likes)
     useLoading().value = false
   }).catch((error)=>{

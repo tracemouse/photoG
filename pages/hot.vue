@@ -1,6 +1,6 @@
 <template>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 g-lg-3">
-      <CardImg v-for="item in photos" :item="item"/>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-3">
+      <CardImg v-for="item in photos" :item="item" @clickImg="showImg($event)"/>
     </div>
 
     <template v-if="totalCnt == 0">
@@ -8,6 +8,10 @@
           抱歉，暂无上传的照片
       </div>
     </template>
+
+    <div v-if="showImgSrc" @click="showImgSrc=''" style="background-color: rgb(0,0,0, 0.35);" class="position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+        <img style="max-width: 85%;max-height: 85%;" :src="showImgSrc">
+    </div>
 
 </template>
 <script setup lang="ts">
@@ -19,6 +23,7 @@ const route = useRoute()
 
 let photos = ref<photo[]>()
 let totalCnt = ref<number>(0)
+let showImgSrc = ref('');
 
 const { status, data } = await useFetch("/api/list", {
     query: {
@@ -32,7 +37,15 @@ const { status, data } = await useFetch("/api/list", {
 
 photos.value = data.value.items as photo[]
 totalCnt.value = data.value.count as number
-console.log(photos)
+
+const showImg = (id: any) => {
+    photos.value .find((item: any) => {
+        if(item.id == id){
+            showImgSrc.value = item.url;
+            return true;
+        }
+    })
+}
 
 </script>
 
