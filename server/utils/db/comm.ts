@@ -148,6 +148,18 @@ export async function commDB(supabase:SupabaseClient){
     return data
   }
 
+  async function getSeatPlan():Promise<unknown>{
+    let query = supabase.from("seatplan").select(`*`)
+    query = query.order("tableId", {ascending: true})
+    query = query.order("seatId", {ascending: true})
+
+    const {data, error} =  await query
+    if(error){
+      useServerError().throwDbError(error)
+    }
+    return data
+  }
+
   return {
     getById: getById,
     ins:ins,
@@ -158,6 +170,7 @@ export async function commDB(supabase:SupabaseClient){
     getList: getList,
     getByField:getByField,
     increase:increase,
+    getSeatPlan:getSeatPlan,
   }
 }
 
