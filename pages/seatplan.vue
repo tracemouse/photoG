@@ -1,7 +1,7 @@
 <template>
 
 <div class="mb-2 d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center cursor-pointer" @click="showCarousel = true">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickTableplan">
       <Icon name="tabler:grid-dots" class="me-1" size="1.2rem"></Icon> 
       座位分布图
     </div>
@@ -32,79 +32,89 @@ const { status, data } = await useFetch("/api/seatplan", {
 seatplans.value = data.value.items as seatplan[]
 totalCnt.value = data.value.count as number
 
-
-
 const showError = ()=>{
 
-$swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: '抱歉，查询失败，请稍候再试！',
-});
+  $swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: '抱歉，查询失败，请稍候再试！',
+  });
 
 }
 
 const showSucc = (seat: string)=>{
-let text = '';
-let icon = '';
-if(seat){
-  text = "您的座位位于"+ seat;
-  icon = "success"
-}else {
-  text = "抱歉，未查询到您座位，请联系活动组委！";
-  icon = "error"
-}
+  let text = '';
+  let icon = '';
+  if(seat){
+    text = "您的座位位于"+ seat;
+    icon = "success"
+  }else {
+    text = "抱歉，未查询到您座位，请联系活动组委！";
+    icon = "error"
+  }
 
-$swal.fire({
-  icon: icon,
-  title: text,
-});
+  $swal.fire({
+    icon: icon,
+    title: text,
+  });
 }
 
 const onClickSearchSeat = async () => {
-const { value: name } = await $swal.fire({
-  title: "查询座位",
-  input: "text",
-  inputPlaceholder: "请输入姓名",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "确定",
-  cancelButtonText: "取消",
-  inputValidator: (value) => {
-    return new Promise((resolve) => {
-      if (value) {
-        resolve();
-      } else {
-        resolve("请输入");
+  const { value: name } = await $swal.fire({
+    title: "查询座位",
+    input: "text",
+    inputPlaceholder: "请输入姓名",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        if (value) {
+          resolve();
+        } else {
+          resolve("请输入");
+        }
+      });
+    }
+  });
+  if (name) {
+    useLoading().value = true
+
+    $fetch('/api/seat',{
+      query:{
+        searchValue: name
       }
-    });
+    }).then((data)=>{
+      if(data.items.length > 0){
+        let items = data.items;
+        let seat = `第${items[0].tableId.replace("Table", '').trim()}桌`
+        showSucc(seat)
+      }else {
+        showSucc('');
+      }
+      useLoading().value = false
+
+    }).catch((error)=>{
+      console.log(error)
+      useLoading().value = false
+      showError()
+
+    })
   }
-});
-if (name) {
-  useLoading().value = true
-
-  $fetch('/api/seat',{
-    query:{
-      searchValue: name
-    }
-  }).then((data)=>{
-    if(data.items.length > 0){
-      let items = data.items;
-      let seat = `第${items[0].tableId.replace("Table", '').trim()}桌`
-      showSucc(seat)
-    }else {
-      showSucc('');
-    }
-    useLoading().value = false
-
-  }).catch((error)=>{
-    console.log(error)
-    useLoading().value = false
-    showError()
-
-  })
 }
+
+const onClickTableplan = ()=>{
+  $swal.fire({
+    html: `
+      <img style='max-width:95%;' src="/seatplan.jpg" />
+    `,
+    showCloseButton: true,
+    showCancelButton: false,
+    focusConfirm: false,
+    confirmButtonText: '确定',
+  });
 }
 </script>
 

@@ -3,7 +3,7 @@
 <div class="col">
 <div class="card">
 	<div class="card-header text-center">
-		第{{ props.tableId }} 桌
+		第 {{ props.tableId }} 桌
 	</div>
 	<div class="card-body">
 		<div class="d-flex justify-content-between mt-1 border-bottom" v-for="table in tables">
