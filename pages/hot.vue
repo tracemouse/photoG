@@ -1,5 +1,5 @@
 <template>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3 g-lg-3">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 g-lg-3">
       <CardImg v-for="item in photos" :item="item"/>
     </div>
 
@@ -32,6 +32,7 @@ const { status, data } = await useFetch("/api/list", {
 
 photos.value = data.value.items as photo[]
 totalCnt.value = data.value.count as number
+console.log(photos)
 
 </script>
 
