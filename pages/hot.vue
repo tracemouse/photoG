@@ -1,7 +1,7 @@
 <template>
 
     <div class="mb-2 d-flex justify-content-between align-items-center">
-        <div @click="showCarousel = true">轮播</div>
+        <div class="cursor-pointer" @click="showCarousel = true">轮播</div>
         <div class="d-flex align-items-center cursor-pointer" @click="refreshList()">
             <Icon name="tabler:refresh" class="me-1" size="1.2rem"></Icon> 刷新
         </div>
