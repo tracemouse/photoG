@@ -5,7 +5,16 @@
     GSC IT Development & Test Center<br>2025 Annual Dinner
   </div>
 
-  <div class="d-flex justify-content-center mt-3">
+  <div class="my-2 px-3 d-flex justify-content-between align-items-center">
+      <a class="d-flex align-items-center" href="https:////uri.amap.com/marker?name=佳宁娜广场4楼&position=114.119464,22.536823" target="_blank">
+        <Icon name="tabler:map-pin-filled" size="1.5rem"></Icon>深圳市罗湖区人民南路佳宁娜广场4楼
+      </a>
+      <a class="d-flex align-items-center cursor-pointer" href="https://uri.amap.com/navigation?from=&to=114.119464,22.536823,佳宁娜广场4楼&mode=walk&src=&callnative=0" target="_blank">
+        <Icon name="tabler:walk" size="1.5rem"></Icon>导航
+      </a>
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
     <button class="btn btn-primary" @click="onClickUpload">上传照片</button>
   </div>
   
@@ -18,7 +27,7 @@
   </div>
 
   <div class="d-flex justify-content-center mt-3">
-    <button class="btn btn-warning" @click="onClickSeatplan">座位分布图</button>
+    <button class="btn btn-warning" @click="onClickSeatplan">座位表</button>
   </div>
 
   <div class="d-flex justify-content-center mt-3 mb-5">

@@ -10,9 +10,10 @@
     <div>
     </div>
   </div>
-  <div class="card-body d-flex justify-content-center">
-    <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
-    <div style="padding: 5rem 0 !important;" class="w-100 upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+  <div class="card-body d-flex flex-column align-items-center">
+    <img class="u-img mb-2" :src="templateImg" @click="onClickShowImgPopup()"/>
+    <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
+    <div style="padding: 5rem 0 !important;" class="w-100 upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
       </div>
@@ -22,15 +23,16 @@
     </div>
   </div>
   <div class="point-box" v-if="base64">
-    <div class="d-flex align-items-center" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
       <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
     </div>
-    <div class="d-flex align-items-center" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
       <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
     </div>
   </div>
-  <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-    <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+  <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
+    <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
+    <img :src="templateImg" class="mb-2">
     <img :src="base64">
   </div>
 </div>
@@ -49,6 +51,24 @@ let selected = ref(false)
 let base64 = ref("")
 let point = ref(0)
 let showImg = ref(false)
+let templateImg = ref("")
+
+let template = [
+  [1,2],
+  [3,4,5,6],
+  [7,8,9,10],
+  [11,12,13,14],
+  [15,16,17,18,19],
+  [20,21,22,23],
+  [24,25,26,27],
+  [28,29,30,31]
+]
+template.find((item)=>{
+  if(item.includes(id)){
+    templateImg.value = `/emoj/${item.join('.')}.jpg`
+    return true;
+  }
+})
 
 const { data: photo } = await useFetch("/api/get", {
         query: {
@@ -119,6 +139,17 @@ const onClickVote = (likes: boolean)=>{
   })
 }
 
+const onClickShowImgPopup = () => {
+  showImg.value = true
+  document.body.style.overflow = 'hidden'
+  
+}
+
+const onClickHideImgPopup = () => {
+  showImg.value = false
+  document.body.style.overflow = ''
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -137,7 +168,7 @@ const onClickVote = (likes: boolean)=>{
 
  .u-img{
   max-width: 95%;
-  max-height: 550px;
+  max-height: 400px;
   cursor: pointer;
  }
  
@@ -160,7 +191,7 @@ const onClickVote = (likes: boolean)=>{
 
   img {
     max-width: 85%;
-    max-height: 85%;
+    max-height: 45%;
   }
 }
 

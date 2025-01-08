@@ -4,8 +4,11 @@
   第 {{id}} 桌
 </div>
 
+<div class="cropper-content mt-3">
+  <img class="u-img" :src="templateImg" @click="onClickShowImgPopup()"/>
+</div>
 <div class="cropper-content mt-3" v-if="base64">
-  <NuxtImg class="u-img" :src="base64" @click="showImg = true"/>
+  <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
 <div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
@@ -25,8 +28,9 @@
   <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
 </div>
 
-<div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
-  <Icon name="tabler:xbox-x" @click="showImg = false" class="me-1 text-white x-btn" size="3rem"></Icon>
+<div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
+  <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
+  <img :src="templateImg" class="mb-2">
   <img :src="base64">
 </div>
 
@@ -47,6 +51,24 @@ let loading = ref(false)
 let selected = ref(false)
 let base64 = ref("")
 let showImg = ref(false)
+let templateImg = ref("")
+
+let template = [
+  [1,2],
+  [3,4,5,6],
+  [7,8,9,10],
+  [11,12,13,14],
+  [15,16,17,18,19],
+  [20,21,22,23],
+  [24,25,26,27],
+  [28,29,30,31]
+]
+template.find((item)=>{
+  if(item.includes(id)){
+    templateImg.value = `/emoj/${item.join('.')}.jpg`
+    return true;
+  }
+})
 
 const { data: photo } = await useFetch("/api/get", {
         query: {
@@ -61,8 +83,7 @@ if(photo.value){
   base64.value = photo.value.url
 }
 
-
-const maxWidth = 1500;
+const maxWidth = 800;
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*', // Set to accept only image files
   directory: false, // Select directories instead of files if set true
@@ -87,15 +108,32 @@ const onClickSelect = ()=>{
 }
 
 const onClickDel = ()=>{
-  $fetch('/api/del',{
-    query:{
-      id: id,
+  $swal.fire({
+    title: `是否确认要删除照片?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $fetch('/api/del',{
+        query:{
+          id: id,
+        }
+      }).then((data)=>{
+        base64.value = ""
+        $swal.fire({
+          icon: "success",
+          title: "删除成功！",
+        });
+      }).catch((error)=>{
+        showError()
+      })
     }
-  }).then((data)=>{
-    base64.value = ""
-  }).catch((error)=>{
-    showError()
-  })
+  });
+  
 }
 
 //上传图片并压缩
@@ -232,6 +270,17 @@ const onClickBack = ()=>{
   navigateTo("/")
 }
 
+const onClickShowImgPopup = () => {
+  showImg.value = true
+  document.body.style.overflow = 'hidden'
+  
+}
+
+const onClickHideImgPopup = () => {
+  showImg.value = false
+  document.body.style.overflow = ''
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -248,7 +297,7 @@ const onClickBack = ()=>{
 
  .u-img{
   max-width: 95%;
-  max-height: 550px;
+  max-height: 400px;
   cursor: pointer;
  }
  
@@ -275,7 +324,7 @@ const onClickBack = ()=>{
 
   img {
     max-width: 85%;
-    max-height: 85%;
+    max-height: 45%;
   }
 }
 
