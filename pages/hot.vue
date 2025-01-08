@@ -9,7 +9,8 @@
       </div>
     </template>
 
-    <div v-if="showImgSrc" @click="showImgSrc=''" style="background-color: rgb(0,0,0, 0.35);" class="position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+    <div v-if="showImgSrc" style="background-color: rgb(0,0,0, 0.35);" class="position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+        <Icon name="tabler:x" @click="showImgSrc=''" class="me-1 text-white x-btn" size="3.5rem"></Icon>
         <img style="max-width: 85%;max-height: 85%;" :src="showImgSrc">
     </div>
 
@@ -70,5 +71,12 @@ const showImg = (id: any) => {
     display: flex;
     justify-content: center;
 } 
+
+.x-btn {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+}
 
 </style>
