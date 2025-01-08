@@ -14,10 +14,10 @@
   <NuxtImg class="u-img" :src="base64" />
 </div>
 <div class="card-footer">
-  <button class="btn btn-light d-flex align-items-center" @click="onClickVote()">
+  <button class="btn btn-light d-flex align-items-center" @click="onClickVote()" v-if="!useStore().vote.includes(id)">
     <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
   </button>
-  <button class="btn btn-light d-flex align-items-center">
+  <button class="btn btn-light d-flex align-items-center" disabled v-if="useStore().vote.includes(id)">
     <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
   </button>
 </div>
@@ -50,7 +50,6 @@ if(photo.value){
   base64.value = photo.value.url
   point.value = photo.value.point
 }
- 
 
 const showError = ()=>{
   $swal.fire({
@@ -68,6 +67,8 @@ const showSucc = ()=>{
 }
 
 const onClickVote = ()=>{
+  useLoading().value = true
+
   $fetch('/api/vote',{
     query:{
       id: id,
@@ -75,7 +76,13 @@ const onClickVote = ()=>{
   }).then((data)=>{
     point.value = point.value + 1
     showSucc()
+    let vote = useStore().vote
+    if(!vote) vote = []
+    vote.push(id)
+    useStore().setVote(vote)
+    useLoading().value = false
   }).catch((error)=>{
+    useLoading().value = false
     showError()
   })
 }
