@@ -1,21 +1,37 @@
 <template>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3 g-lg-3">
+      <CardImg v-for="item in photos" :item="item"/>
+    </div>
+
+    <template v-if="totalCnt == 0">
+      <div class="alert alert-warning" role="alert">
+          抱歉，暂无上传的照片
+      </div>
+    </template>
 
 </template>
-<script setup lang="ts"> 
+<script setup lang="ts">
+import type { photo } from '~/types/table';
+
 const { $swal } = useNuxtApp()
 
 const route = useRoute()
 
-const { data: data } = await useFetch("/api/list", {
+let photos = ref<photo[]>()
+let totalCnt = ref<number>(0)
+
+const { status, data } = await useFetch("/api/list", {
     query: {
-      id: id
+        sortBy: 'point',
+        sortType: 'desc',
     },
     default() {
-        return null;
+        return {count:0, items:[]};
     },
-})
+});
 
- 
+photos.value = data.value.items as photo[]
+totalCnt.value = data.value.count as number
 
 </script>
 
