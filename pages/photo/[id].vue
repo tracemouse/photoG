@@ -65,7 +65,7 @@ let template = [
 ]
 template.find((item)=>{
   if(item.includes(id)){
-    templateImg.value = `/emoj/${item.join('.')}.jpg`
+    templateImg.value = `/emoj/${item.join('.')}.webp`
     return true;
   }
 })

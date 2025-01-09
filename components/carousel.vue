@@ -65,7 +65,7 @@ const getTemplateImg = (id: any) => {
 	]
 	template.find((item)=>{
 		if(item.includes(id)){
-			templateImg = `/emoj/${item.join('.')}.jpg`
+			templateImg = `/emoj/${item.join('.')}.webp`
 			return true;
 		}
 	})
