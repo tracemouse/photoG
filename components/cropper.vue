@@ -16,7 +16,7 @@
 			></vueCropper>
 			
 			<div>
-				<button type="button" class="btn btn-danger me-2" @click="onClickRotate()">旋转图片</button>
+				<button type="button" class="btn btn-dark me-2" @click="onClickRotate()">旋转图片</button>
 				<button type="button" class="btn btn-danger" @click="onClickUpload()">上传截图</button>
 			</div>
 		</div>
