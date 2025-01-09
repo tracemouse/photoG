@@ -12,7 +12,7 @@
   </div>
   <div class="card-body d-flex flex-column align-items-center">
     <img class="u-img mb-2" :src="templateImg" @click="onClickShowImgPopup()"/>
-    <NuxtImg class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
+    <img class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
     <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
