@@ -40,6 +40,11 @@
 
 <cropper :show="showCropper" :imgUrl="cropperImg" @hide="hideCropper()" @submit="cropperSubmit($event)"></cropper>
 
+
+<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;">
+{{ debug }}
+
+</textarea>
 </template>
 <script setup lang="ts">
 import { useLoading } from '~/composables/useLoading';
@@ -61,6 +66,7 @@ let showImg = ref(false)
 let templateImg = ref("")
 let showCropper = ref(false)
 let cropperImg = ref('');
+let debug = ref("")
 
 let template = [
   [1,2],
@@ -201,8 +207,11 @@ onChange((files) => {
 
 //提交截图，传回来的base64进行一次maxWidth的缩放，然后在blob2Base64后上传
 const cropperSubmit = (cropData: string) => {
-  useLoading().value = true
-  uploadBase64(cropData)
+  hideCropper()
+  debug.value = cropData
+
+  //useLoading().value = true
+  //uploadBase64(cropData)
   // base64Compress(cropData, maxWidth).then((blob) => {
   //   blob2Base64(blob)
   // })
