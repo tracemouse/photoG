@@ -12,8 +12,8 @@
   </div>
   <div class="card-body d-flex flex-column align-items-center">
     <img class="u-img mb-2" :src="templateImg" @click="onClickShowImgPopup()"/>
-    <NuxtImg class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
-    <div style="padding: 5rem 0 !important;" class="w-100 upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+    <img class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
+    <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
       </div>
@@ -58,10 +58,10 @@ let template = [
   [3,4,5,6],
   [7,8,9,10],
   [11,12,13,14],
-  [15,16,17,18,19],
-  [20,21,22,23],
-  [24,25,26,27],
-  [28,29,30,31]
+  [15,16,17,18],
+  [19,20,21,22],
+  [23,24,25,26],
+  [27,28,29,30,31]
 ]
 template.find((item)=>{
   if(item.includes(id)){
@@ -193,6 +193,10 @@ const onClickHideImgPopup = () => {
     max-width: 85%;
     max-height: 45%;
   }
+}
+
+.pic-box{
+  width: 95%;
 }
 
 </style>

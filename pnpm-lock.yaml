@@ -47,6 +47,9 @@ dependencies:
   vue:
     specifier: latest
     version: 3.5.13(typescript@5.7.2)
+  vue-cropper:
+    specifier: ^1.1.4
+    version: 1.1.4
   vue-router:
     specifier: latest
     version: 4.5.0(vue@3.5.13)
@@ -7085,6 +7088,10 @@ packages:
     resolution: {integrity: sha512-+qALLI5cQncuetYOXp4yScwYvqh8c6SMXee3B+M7oTZxOgtESP0l4j/fXdEJoZ+EdMxkGWIj+aSEyjXkOdmd7g==}
     dependencies:
       ufo: 1.5.4
+    dev: false
+
+  /vue-cropper@1.1.4:
+    resolution: {integrity: sha512-5m98vBsCEI9rbS4JxELxXidtAui3qNyTHLHg67Qbn7g8cg+E6LcnC+hh3SM/p94x6mFh6KRxT1ttnta+wCYqWA==}
     dev: false
 
   /vue-demi@0.14.10(vue@3.5.13):
