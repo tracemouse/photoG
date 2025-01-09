@@ -10,7 +10,7 @@
 <div class="cropper-content mt-3" v-if="base64">
   <img class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
-<div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
+<div style="padding: 5rem 0 !important;"  class="upload-box mt-3 mx-auto d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
     <Icon name="tabler:photo-up" class="me-1" size="3.5rem"></Icon>
   </div>
@@ -353,7 +353,7 @@ const hideCropper = () => {
 
  .u-img{
   max-width: 95%;
-  max-height: 400px;
+  width: 800px;
   cursor: pointer;
  }
  
@@ -365,6 +365,8 @@ const hideCropper = () => {
 
 .upload-box {
   border: dashed 1px;
+  max-width: 95%;
+  width: 800px;
 }
 
 .img-box { 

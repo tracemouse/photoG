@@ -168,7 +168,6 @@ const onClickHideImgPopup = () => {
 
  .u-img{
   max-width: 95%;
-  max-height: 400px;
   cursor: pointer;
  }
  
@@ -196,7 +195,9 @@ const onClickHideImgPopup = () => {
 }
 
 .pic-box{
-  width: 95%;
+  max-width: 95%;
+  width: 800px;
+
 }
 
 </style>

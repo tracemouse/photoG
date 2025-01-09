@@ -82,7 +82,7 @@ const onClickRotate = () => {
 	width: 45em;
 	height: 40em;
 	max-width: 100%;
-	max-height: 75%;
+	max-height: 60%;
 	grid-area: center;
 	grid-template-columns: minmax(0, 100%);
 	grid-column: 2;
