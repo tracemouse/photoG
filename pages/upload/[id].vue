@@ -52,17 +52,6 @@ const id:number = parseInt(route.params.id as string)
 
 const isAdmin = ref(false)
 
-const getUrlParams = (name: string) => {
-  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-  const regOk = /^[A-Za-z0-9\-\%\/\:\.\s]+$/;
-  const parURL = window.location.search;
-  const r = parURL.substr(1).match(reg);
-  if (r != null && regOk.test(r[2])) {
-    return r[2];
-  }
-  return '';
-}
-
 // const snackbar = useSnackbar()
 let loading = ref(false)
  
@@ -107,15 +96,16 @@ onMounted(()=>{
     });
 
     //url上补上?admin打开删除照片后门
-    isAdmin.value = (()=>{
-      let parURL = window.location.search
-      let reg = new RegExp('admin')
-      if(parURL.match(reg)){
-        return true;
-      }else {
-        return false;
-      }
-    })();
+    isAdmin.value = true;
+    // isAdmin.value = (()=>{
+    //   let parURL = window.location.search
+    //   let reg = new RegExp('admin')
+    //   if(parURL.match(reg)){
+    //     return true;
+    //   }else {
+    //     return false;
+    //   }
+    // })();
 
   }
 })
