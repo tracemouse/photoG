@@ -215,9 +215,15 @@ const cropperSubmit = (cropData: string) => {
 
   useLoading().value = true
   //uploadBase64(cropData)
-  base64Compress(cropData, maxWidth).then((blob) => {
-    blob2Base64(blob)
+  // base64Compress(cropData, maxWidth).then((blob) => {
+  //   blob2Base64(blob)
+  // })
+
+  base64Compress(cropData, maxWidth).then((base64Str) => {
+    debug2.value = base64Str as string
+    uploadBase64(base64Str as string)
   })
+
 }
 
 const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
@@ -238,13 +244,15 @@ const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
           img.height = canvas.height = height;
           let ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, img.width, img.height);
-          canvas.toBlob(
-              (blob) => {
-                  resolve(blob);
-              },
-              "image/webp",
-              quality
-          );
+          // canvas.toBlob(
+          //     (blob) => {
+          //         resolve(blob);
+          //     },
+          //     "image/webp",
+          //     quality
+          // );
+          let dataurl = canvas.toDataURL('image/webp');
+          resolve(dataurl);
       };
 
       img.onerror = function () {
