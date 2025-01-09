@@ -45,7 +45,7 @@ const emit = defineEmits(['hide', 'submit'])
 
 const onClickUpload = () => {
 	cropperBox.value.getCropData(data => {
-  	emit('submit', data)
+  		emit('submit', data)
 	})
 }
 
