@@ -96,16 +96,15 @@ onMounted(()=>{
     });
 
     //url上补上?admin打开删除照片后门
-    isAdmin.value = true;
-    // isAdmin.value = (()=>{
-    //   let parURL = window.location.search
-    //   let reg = new RegExp('admin')
-    //   if(parURL.match(reg)){
-    //     return true;
-    //   }else {
-    //     return false;
-    //   }
-    // })();
+    isAdmin.value = (()=>{
+      let parURL = window.location.search
+      let reg = new RegExp('admin')
+      if(parURL.match(reg)){
+        return true;
+      }else {
+        return false;
+      }
+    })();
 
   }
 })
