@@ -5,7 +5,7 @@
 		<div class="card-container rounded-1">
 			<div class="img-box rounded-1">
 				<img class="w-100 cursor-pointer mb-2" :src="getTemplateImg(props.item.id)" @click="onClickImg(props.item.id)"/>
-				<NuxtImg :src="`${props.item.url}`" class="w-100 cursor-pointer" placeholder="/apple-icon.png" @click="onClickImg(props.item.id)"></NuxtImg>
+				<NuxtImg :src="`${props.item.url}`" class="w-100 cursor-pointer" placeholder="/poster.webp" @click="onClickImg(props.item.id)"></NuxtImg>
 			</div>
 			<div class="d-flex justify-content-between pt-3 pb-2">
 				<div class="title px-2">
