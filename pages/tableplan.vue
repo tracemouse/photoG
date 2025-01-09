@@ -5,7 +5,7 @@
   座位分布图
 </div>
 <div class="card-body d-flex justify-content-center">
-  <img src="/seatplan.jpg" />
+  <img src="/seatplan.webp" />
 </div>
 </div>
 

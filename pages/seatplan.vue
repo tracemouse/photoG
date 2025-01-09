@@ -108,7 +108,7 @@ const onClickSearchSeat = async () => {
 const onClickTableplan = ()=>{
   $swal.fire({
     html: `
-      <img style='max-width:95%;' src="/seatplan.jpg" />
+      <img style='max-width:95%;' src="/seatplan.webp" />
     `,
     showCloseButton: true,
     showCancelButton: false,
