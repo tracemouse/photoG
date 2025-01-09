@@ -6,8 +6,7 @@
 			<vueCropper
 				ref="cropperBox"
 				:img="imgUrl"
-				:outputSize="1"
-				outputType="webp"
+				:outputSize="0.7"
 				:autoCrop="true"
 				:autoCropWidth="50"
 				:fixed="true"

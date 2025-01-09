@@ -207,14 +207,13 @@ onChange((files) => {
 
 //提交截图，传回来的base64进行一次maxWidth的缩放，然后在blob2Base64后上传
 const cropperSubmit = (cropData: string) => {
-  hideCropper()
   debug.value = cropData
 
-  //useLoading().value = true
+  useLoading().value = true
   //uploadBase64(cropData)
-  // base64Compress(cropData, maxWidth).then((blob) => {
-  //   blob2Base64(blob)
-  // })
+  base64Compress(cropData, maxWidth).then((blob) => {
+    blob2Base64(blob)
+  })
 }
 
 const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
