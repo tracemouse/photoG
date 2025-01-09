@@ -12,7 +12,7 @@
 							<img :src="item.url" :alt="item.id">
 							<div class="d-flex justify-content-between mt-2 w-100 px-2 text-white">
 								<div class="fw-bold">第 {{item.id}} 桌</div>
-								<div class="d-flex align-items-center fw-bold">获赞数 <Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
+								<div class="d-flex align-items-center fw-bold"><Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
 							</div>
 						</div>
 					</div>
