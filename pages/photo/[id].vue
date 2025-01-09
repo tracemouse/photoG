@@ -34,6 +34,12 @@
     <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
     <img :src="templateImg" class="mb-2">
     <img :src="base64">
+    <button class="prev-btn" type="button" v-if="id > 1" @click="onClickPrev()">
+      <Icon name="tabler:chevron-left" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
+    </button>
+    <button class="next-btn" type="button" v-if="id < 31" @click="onClickNext()">
+      <Icon name="tabler:chevron-right" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
+    </button>
   </div>
 </div>
 
@@ -150,6 +156,16 @@ const onClickHideImgPopup = () => {
   document.body.style.overflow = ''
 }
 
+const onClickPrev = () => {
+  let toUrl = '/photo/' + (id - 1)
+  navigateTo(toUrl)
+}
+
+const onClickNext = () => {
+  let toUrl = '/photo/' + (id + 1)
+  navigateTo(toUrl)
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -185,6 +201,7 @@ const onClickHideImgPopup = () => {
     position: absolute;
     top: 2%;
     right: 2%;
+    z-index: 99;
     cursor: pointer;
   }
 
@@ -198,6 +215,38 @@ const onClickHideImgPopup = () => {
   max-width: 95%;
   width: 800px;
 
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 15%;
+  margin: auto;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: .8;
+  transition: opacity .15s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.prev-btn {
+  left: 7.5%;
+}
+
+.next-btn {
+  right: 7.5%;
 }
 
 </style>
