@@ -1,10 +1,10 @@
 <template>
 
     <div class="mb-2 d-flex justify-content-between align-items-center">
-        <button class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="showCarousel = true">
+        <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="showCarousel = true">
             <Icon name="tabler:slideshow" class="me-1" size="1.2rem"></Icon> 照片秀
         </button>
-        <button class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="refreshList()">
+        <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="refreshList()">
             <Icon name="tabler:refresh" class="me-1" size="1.2rem"></Icon> 刷新
         </button>
     </div>
