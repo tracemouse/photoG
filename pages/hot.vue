@@ -1,12 +1,12 @@
 <template>
 
     <div class="mb-2 d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center cursor-pointer" @click="showCarousel = true">
+        <button class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="showCarousel = true">
             <Icon name="tabler:slideshow" class="me-1" size="1.2rem"></Icon> 照片秀
-        </div>
-        <div class="d-flex align-items-center cursor-pointer" @click="refreshList()">
+        </button>
+        <button class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="refreshList()">
             <Icon name="tabler:refresh" class="me-1" size="1.2rem"></Icon> 刷新
-        </div>
+        </button>
     </div>
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-3">
@@ -107,10 +107,6 @@ const onClickHideImgPopup = () => {
   font-size: 1.5rem;
   font-weight: 700;
   color: black;
- }
- 
- .btn {
-    width: 250px;
  }
 
  .u-img{
