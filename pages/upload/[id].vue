@@ -43,7 +43,10 @@
 
 <textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;">
 {{ debug }}
+</textarea>
 
+<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;">
+{{ debug2 }}
 </textarea>
 </template>
 <script setup lang="ts">
@@ -67,6 +70,7 @@ let templateImg = ref("")
 let showCropper = ref(false)
 let cropperImg = ref('');
 let debug = ref("")
+let debug2 = ref("")
 
 let template = [
   [1,2],
@@ -207,14 +211,13 @@ onChange((files) => {
 
 //提交截图，传回来的base64进行一次maxWidth的缩放，然后在blob2Base64后上传
 const cropperSubmit = (cropData: string) => {
-  hideCropper()
   debug.value = cropData
 
-  //useLoading().value = true
+  useLoading().value = true
   //uploadBase64(cropData)
-  // base64Compress(cropData, maxWidth).then((blob) => {
-  //   blob2Base64(blob)
-  // })
+  base64Compress(cropData, maxWidth).then((blob) => {
+    blob2Base64(blob)
+  })
 }
 
 const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
@@ -296,6 +299,7 @@ const blob2Base64 = (blob:any)=>{
     reader.readAsDataURL(blob);
     reader.onload = function (e) {
       // console.log(base64.value)
+      debug2.value = this.result as string
       uploadBase64(this.result as string)
     }
 }
