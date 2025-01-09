@@ -24,8 +24,8 @@
   <button class="btn btn-primary" disabled v-if="base64">照片已上传</button>
 </div> -->
 
-<div class="d-flex justify-content-center mt-3">
-  <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
+<div class="d-flex justify-content-center mt-3" v-if="base64 && isAdmin">
+  <button class="btn btn-danger" @click="onClickDel">删除照片</button>
 </div>
 
 <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
@@ -49,6 +49,19 @@ const { $swal } = useNuxtApp()
 
 const route = useRoute()
 const id:number = parseInt(route.params.id as string)
+
+const isAdmin = ref(false)
+
+const getUrlParams = (name: string) => {
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+  const regOk = /^[A-Za-z0-9\-\%\/\:\.\s]+$/;
+  const parURL = window.location.search;
+  const r = parURL.substr(1).match(reg);
+  if (r != null && regOk.test(r[2])) {
+    return r[2];
+  }
+  return '';
+}
 
 // const snackbar = useSnackbar()
 let loading = ref(false)
@@ -92,6 +105,17 @@ onMounted(()=>{
       focusConfirm: false,
       confirmButtonText: '确定',
     });
+
+    //url上补上?admin打开删除照片后门
+    isAdmin.value = (()=>{
+      let parURL = window.location.search
+      let reg = new RegExp('admin')
+      if(parURL.match(reg)){
+        return true;
+      }else {
+        return false;
+      }
+    })();
 
   }
 })

@@ -13,6 +13,7 @@
 				:fixed="true"
 				:fixedNumber="[8,4.5]"
 				:fixedBox="true"
+				fillColor="#fff"
 			></vueCropper>
 			
 			<div>
