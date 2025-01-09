@@ -77,6 +77,24 @@ template.find((item)=>{
   }
 })
 
+onMounted(()=>{
+  if(import.meta.client){
+    
+    $swal.fire({
+      html: `
+        <img style='max-width:95%;max-height:25vh;' class="mb-2" src="/emoj/15.16.17.18.webp" />
+        <img style='max-width:95%;max-height:25vh;' src="/sample.webp" />
+      `,
+      title: `参考模板`,
+      showCloseButton: true,
+      showCancelButton: false,
+      focusConfirm: false,
+      confirmButtonText: '确定',
+    });
+
+  }
+})
+
 const { data: photo } = await useFetch("/api/get", {
         query: {
           id: id
