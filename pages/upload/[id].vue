@@ -65,7 +65,7 @@ let template = [
 ]
 template.find((item)=>{
   if(item.includes(id)){
-    templateImg.value = `/emoj/${item.join('.')}.jpg`
+    templateImg.value = `/emoj/${item.join('.')}.webp`
     return true;
   }
 })
@@ -189,7 +189,7 @@ const compress = (file, scaleWidth, quality = 0.5) => {
                     (blob) => {
                         resolve(blob);
                     },
-                    "image/jpeg",
+                    "image/webp",
                     quality
                 );
             };

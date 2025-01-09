@@ -4,26 +4,28 @@
 
 		<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item text-center" :class="{'active': index == 0}" v-for="(item, index) in props.list">
+				<div class="carousel-item text-center" :class="{'active': index == props.active}" v-for="(item, index) in props.list">
 					<div>
 						<div class="d-flex flex-column align-items-center">
 							<div class="text-center mb-2 h3 fw-bold text-white">第 {{ index +1 }} 名</div>
 							<img class="mb-2" :src="getTemplateImg(item.id)"/>
 							<img :src="item.url" :alt="item.id">
 							<div class="d-flex justify-content-between mt-2 w-100 px-2 text-white">
-								<div>第 {{item.id}} 桌</div>
-								<div class="d-flex align-items-center">获赞数 <Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
+								<div class="fw-bold">第 {{item.id}} 桌</div>
+								<div class="d-flex align-items-center fw-bold"><Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+				<Icon name="tabler:chevron-left" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
 				<span class="visually-hidden">Previous</span>
 			</button>
 			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+				<Icon name="tabler:chevron-right" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
@@ -41,7 +43,12 @@ const props = defineProps({
   show: {
     type: Boolean,
     required: false,
-  }
+  },
+	active: {
+		type: Number,
+		required: false,
+		default: 0
+	}
 })
 
 const emit = defineEmits(['hide'])
@@ -60,7 +67,7 @@ const getTemplateImg = (id: any) => {
 	]
 	template.find((item)=>{
 		if(item.includes(id)){
-			templateImg = `/emoj/${item.join('.')}.jpg`
+			templateImg = `/emoj/${item.join('.')}.webp`
 			return true;
 		}
 	})
@@ -73,21 +80,28 @@ const getTemplateImg = (id: any) => {
 <style lang="scss" scoped>
 
 .img-box { 
-    background-color: rgba(113, 113, 113, 0.33);
-    backdrop-filter: blur(10px);
-    
-    .x-btn {
-        position: absolute;
-        top: 2%;
-        right: 2%;
-        cursor: pointer;
-				z-index: 99;
-    }
+	background-color: rgba(113, 113, 113, 0.33);
+	backdrop-filter: blur(10px);
+	
+	.x-btn {
+		position: absolute;
+		top: 2%;
+		right: 2%;
+		cursor: pointer;
+		z-index: 99;
+	}
 
-    img {
-			max-width: 85%;
-			max-height: 45vh;
-    }
+	img {
+		max-width: 85%;
+		max-height: 45vh;
+	}
+}
+
+.carousel-control-next, .carousel-control-prev {
+	opacity: .8;
+}
+.carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover {
+	opacity: 1;
 }
 
 </style>
