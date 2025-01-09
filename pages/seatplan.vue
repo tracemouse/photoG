@@ -3,7 +3,7 @@
 <div class="mb-2 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center cursor-pointer" @click="onClickTableplan">
       <Icon name="tabler:grid-dots" class="me-1" size="1.2rem"></Icon> 
-      座位分布图
+      桌位分布图
     </div>
     <div class="d-flex align-items-center cursor-pointer" @click="onClickSearchSeat()">
         <Icon name="tabler:search" class="me-1" size="1.2rem"></Icon> 查询座位
