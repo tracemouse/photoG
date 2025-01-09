@@ -2,6 +2,7 @@ export const useDeviceType = () => {
 
     let isMobile = false
     let isDesktop = false
+    let isWechat = false
 
     let UA: string
     if (import.meta.client)
@@ -29,6 +30,7 @@ export const useDeviceType = () => {
         type: type,
         isMobile: isMobile,
         isDesktop: isDesktop,
+        isWechat: isWechat,
         UA: UA
     }
   }
