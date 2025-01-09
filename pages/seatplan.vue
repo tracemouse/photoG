@@ -1,13 +1,13 @@
 <template>
 
 <div class="mb-2 d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center cursor-pointer" @click="onClickTableplan">
+    <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="onClickTableplan">
       <Icon name="tabler:grid-dots" class="me-1" size="1.2rem"></Icon> 
       桌位分布图
-    </div>
-    <div class="d-flex align-items-center cursor-pointer" @click="onClickSearchSeat()">
+    </button>
+    <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="onClickSearchSeat()">
         <Icon name="tabler:search" class="me-1" size="1.2rem"></Icon> 查询座位
-    </div>
+    </button>
 </div>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 g-lg-3">
