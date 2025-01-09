@@ -11,14 +11,15 @@ export async function fileDB(supabase:SupabaseClient){
   }
  
   async function uploadImg(id:string, fileData:string){
-    fileData = fileData.replace("data:image/jpeg;base64,","")
+    // fileData = fileData.replace("data:image/jpeg;base64,","")
+    fileData = fileData.replace("data:image/webp;base64,","")
     const {data , error} =  await supabase
     .storage
     .from('img')
-    .upload(`${id}.jpeg`, 
+    .upload(`${id}.webp`, 
       decode(fileData), 
       {
-        contentType: 'image/jpeg',
+        contentType: 'image/webp',
         upsert: true
       }
     )
