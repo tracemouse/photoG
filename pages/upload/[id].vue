@@ -40,12 +40,11 @@
 
 <cropper :show="showCropper" :imgUrl="cropperImg" @hide="hideCropper()" @submit="cropperSubmit($event)"></cropper>
 
-
-<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;">
+<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;" v-if="isAdmin">
 {{ debug }}
 </textarea>
 
-<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;">
+<textarea class="mt-5" rows="10" style="width:100%;word-break: break-all;overflow-wrap: break-word;" v-if="isAdmin">
 {{ debug2 }}
 </textarea>
 </template>
