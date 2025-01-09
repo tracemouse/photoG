@@ -13,14 +13,15 @@
   <div class="card-body d-flex flex-column align-items-center">
     <img class="u-img mb-2" :src="templateImg" @click="onClickShowImgPopup()"/>
     <img class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
-    <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+    <img class="u-img" src="/photo-question.jpg" v-if="!base64">
+    <!-- <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
       </div>
       <div>
         尚未上传照片
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="point-box" v-if="base64">
     <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
@@ -34,14 +35,15 @@
     <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
     <img :src="templateImg" class="mb-2">
     <img :src="base64">
-    <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+    <img src="/photo-question.jpg" v-if="!base64">
+    <!-- <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
       </div>
       <div>
         尚未上传照片
       </div>
-    </div>
+    </div> -->
     <button class="prev-btn" type="button" v-if="id > 1" @click="onClickPrev()">
       <Icon name="tabler:chevron-left" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
     </button>
@@ -230,10 +232,6 @@ const onClickNext = () => {
   img {
     max-width: 85%;
     max-height: 45%;
-  }
-
-  .pic-box{
-    max-width: 85%;
   }
 }
 
