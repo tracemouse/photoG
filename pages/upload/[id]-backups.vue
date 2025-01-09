@@ -8,7 +8,7 @@
   <img class="u-img" :src="templateImg" @click="onClickShowImgPopup()"/>
 </div>
 <div class="cropper-content mt-3" v-if="base64">
-  <img class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
+  <NuxtImg class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
 <div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
@@ -38,13 +38,8 @@
   <button class="btn btn-dark" @click="onClickBack()">返回首页</button>
 </div> -->
 
-<cropper :show="showCropper" :imgUrl="cropperImg" @hide="hideCropper()" @submit="cropperSubmit($event)"></cropper>
-
 </template>
-<script setup lang="ts">
-import { useLoading } from '~/composables/useLoading';
-
- 
+<script setup lang="ts"> 
 const { $swal } = useNuxtApp()
 
 const route = useRoute()
@@ -57,8 +52,6 @@ let selected = ref(false)
 let base64 = ref("")
 let showImg = ref(false)
 let templateImg = ref("")
-let showCropper = ref(false)
-let cropperImg = ref('');
 
 let template = [
   [1,2],
@@ -143,9 +136,9 @@ const onClickDel = ()=>{
   
 }
 
-//上传图片进行截图
+//上传图片并压缩
 onChange((files) => {
-    // useLoading().value = true
+    useLoading().value = true
 
     if(!files || files.length != 1){
         // popError("请选择有效的图片文件")
@@ -153,59 +146,19 @@ onChange((files) => {
         return
     }
     let file = files[0]
-    var reader = new FileReader();
-    useLoading().value = true;
-    reader.readAsDataURL(file);
-    reader.onload = function (e:any) {
-      showCropper.value = true;
-      cropperImg.value = e.target.result
-      document.body.style.overflow = 'hidden'
-      useLoading().value = false;
-    }
-  // compress(file, maxWidth).then((blob) => {
-  //   blob2Base64(blob)
-  // });
-})
-
-//提交截图，传回来的base64进行一次maxWidth的缩放，然后在blob2Base64后上传
-const cropperSubmit = (cropData: string) => {
-  useLoading().value = true
-  base64Compress(cropData, maxWidth).then((blob) => {
+    // var reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onload = function (e:any) {
+    //   console.log(e.target.result)
+    // // 图片base64化
+    //     option.value.img = e.target.result;    //图片路径
+    //     // selected.value = true
+    // }
+  // };
+  compress(file, maxWidth).then((blob) => {
     blob2Base64(blob)
-  })
-}
-
-const base64Compress = (base64, scaleWidth, quality = 0.5) => {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.src = base64;
-      img.onload = function () {
-          // 等比例缩放图片
-          const [width, height] = imageScale(
-              scaleWidth,
-              img.width,
-              img.height
-          );
-          console.log(width, height)
-          let canvas = document.createElement("canvas");
-          img.width = canvas.width = width;
-          img.height = canvas.height = height;
-          let ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, img.width, img.height);
-          canvas.toBlob(
-              (blob) => {
-                  resolve(blob);
-              },
-              "image/webp",
-              quality
-          );
-      };
-
-      img.onerror = function () {
-          reject();
-      };
-    });
-}
+  });
+})
 
 const imageScale = (width, originWidth, originHeight) => {
     const scaleRatio = width / originWidth;
@@ -290,13 +243,11 @@ const uploadBase64 = (base64String:string) =>{
  
       useLoading().value = false
       base64.value = base64String
-      hideCropper()
       showSucc()
     }).catch((error)=>{
-      // popApiError(error)
-      useLoading().value = false
-      hideCropper()
-      showError()
+        // popApiError(error)
+        useLoading().value = false
+        showError()
     })
 }
 
@@ -328,13 +279,6 @@ const onClickShowImgPopup = () => {
 const onClickHideImgPopup = () => {
   showImg.value = false
   document.body.style.overflow = ''
-}
-
-const hideCropper = () => {
-  showCropper.value = false;
-  cropperImg.value = '';
-  document.body.style.overflow = ''
-  reset();
 }
 
 </script>
