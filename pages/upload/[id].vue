@@ -251,7 +251,7 @@ const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
           //     "image/webp",
           //     quality
           // );
-          let dataurl = canvas.toDataURL('image/webp');
+          let dataurl = canvas.toDataURL('image/jpeg', quality);
           resolve(dataurl);
       };
 
@@ -290,7 +290,7 @@ const compress = (file, scaleWidth, quality = 0.5) => {
                     (blob) => {
                         resolve(blob);
                     },
-                    "image/webp",
+                    "image/jpeg",
                     quality
                 );
             };
