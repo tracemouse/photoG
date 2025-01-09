@@ -207,10 +207,10 @@ const cropperSubmit = (cropData: string) => {
   })
 }
 
-const base64Compress = (base64, scaleWidth, quality = 0.5) => {
+const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
     return new Promise((resolve, reject) => {
       let img = new Image();
-      img.src = base64;
+      img.src = base64Data;
       img.onload = function () {
           // 等比例缩放图片
           const [width, height] = imageScale(
