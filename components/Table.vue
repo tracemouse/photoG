@@ -8,7 +8,7 @@
           </div>
         <div class="d-flex flex-wrap gap-2">
           <template v-for="item in 31">
-            <button class="btn btn-sm btn-page" :class="{'active': route.fullPath == `/photo/${item}` }" 
+            <button class="btn btn-sm btn-page" :class="{'active': route1 == `/photo/${item}` }" 
               @click="()=>{navigateTo(`/photo/${item}`)}"
             >
               {{ item }}
@@ -23,6 +23,8 @@
 <script setup lang="ts">
 
 const route = useRoute()
+const route1 = route.fullPath.split("?")[0]
+
 
 const props = defineProps({
 });

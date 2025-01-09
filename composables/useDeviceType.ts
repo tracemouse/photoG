@@ -26,6 +26,10 @@ export const useDeviceType = () => {
       isDesktop = true
     }
 
+    if(((UA.match(/MicroMessenger/i)) && (UA.match(/MicroMessenger/i)?.toString().toLowerCase() == 'micromessenger'))){
+      isWechat = true
+    }
+
     return {
         type: type,
         isMobile: isMobile,

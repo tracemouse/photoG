@@ -13,14 +13,15 @@
   <div class="card-body d-flex flex-column align-items-center">
     <img class="u-img mb-2" :src="templateImg" @click="onClickShowImgPopup()"/>
     <img class="u-img" v-if="base64" :src="base64" @click="onClickShowImgPopup()"/>
-    <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+    <img class="u-img" src="/photo-question.webp" v-if="!base64">
+    <!-- <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
       <div>
         <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
       </div>
       <div>
         尚未上传照片
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="point-box" v-if="base64">
     <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
@@ -34,6 +35,21 @@
     <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
     <img :src="templateImg" class="mb-2">
     <img :src="base64">
+    <img src="/photo-question.webp" v-if="!base64">
+    <!-- <div style="padding: 5rem 0 !important;" class="pic-box upload-box d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64">
+      <div>
+        <Icon name="tabler:photo-question" class="me-1" size="3.5rem"></Icon>
+      </div>
+      <div>
+        尚未上传照片
+      </div>
+    </div> -->
+    <button class="prev-btn" type="button" v-if="id > 1" @click="onClickPrev()">
+      <Icon name="tabler:chevron-left" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
+    </button>
+    <button class="next-btn" type="button" v-if="id < 31" @click="onClickNext()">
+      <Icon name="tabler:chevron-right" class="me-1 text-white" size="3rem" aria-hidden="true"></Icon>
+    </button>
   </div>
 </div>
 
@@ -67,6 +83,20 @@ template.find((item)=>{
   if(item.includes(id)){
     templateImg.value = `/emoj/${item.join('.')}.webp`
     return true;
+  }
+})
+
+onMounted(()=>{
+  if(import.meta.client){
+    showImg.value = (()=>{
+      let parURL = window.location.search
+      let reg = new RegExp('show')
+      if(parURL.match(reg)){
+        return true;
+      }else {
+        return false;
+      }
+    })()
   }
 })
 
@@ -150,6 +180,16 @@ const onClickHideImgPopup = () => {
   document.body.style.overflow = ''
 }
 
+const onClickPrev = () => {
+  let toUrl = '/photo/' + (id - 1) + '?show'
+  navigateTo(toUrl)
+}
+
+const onClickNext = () => {
+  let toUrl = '/photo/' + (id + 1) + '?show'
+  navigateTo(toUrl)
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -168,7 +208,6 @@ const onClickHideImgPopup = () => {
 
  .u-img{
   max-width: 95%;
-  max-height: 400px;
   cursor: pointer;
  }
  
@@ -186,6 +225,7 @@ const onClickHideImgPopup = () => {
     position: absolute;
     top: 2%;
     right: 2%;
+    z-index: 99;
     cursor: pointer;
   }
 
@@ -196,7 +236,41 @@ const onClickHideImgPopup = () => {
 }
 
 .pic-box{
-  width: 95%;
+  max-width: 95%;
+  width: 800px;
+
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 15%;
+  margin: auto;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: .8;
+  transition: opacity .15s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.prev-btn {
+  left: 7.5%;
+}
+
+.next-btn {
+  right: 7.5%;
 }
 
 </style>

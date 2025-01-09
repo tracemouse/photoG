@@ -10,7 +10,7 @@
 <div class="cropper-content mt-3" v-if="base64">
   <img class="u-img" :src="base64" @click="onClickShowImgPopup()"/>
 </div>
-<div style="padding: 5rem 0 !important;"  class="upload-box mt-3 d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
+<div style="padding: 5rem 0 !important;"  class="upload-box mt-3 mx-auto d-flex flex-column justify-content-center align-items-center text-align-center fw-bold py-5 text-bg-light text-secondary" v-if="!base64" @click="onClickSelect" >
   <div>
     <Icon name="tabler:photo-up" class="me-1" size="3.5rem"></Icon>
   </div>
@@ -24,8 +24,8 @@
   <button class="btn btn-primary" disabled v-if="base64">照片已上传</button>
 </div> -->
 
-<div class="d-flex justify-content-center mt-3">
-  <button class="btn btn-danger" @click="onClickDel" v-if="base64">删除照片</button>
+<div class="d-flex justify-content-center mt-3" v-if="base64 && isAdmin">
+  <button class="btn btn-danger" @click="onClickDel">删除照片</button>
 </div>
 
 <div v-if="showImg" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
@@ -49,6 +49,8 @@ const { $swal } = useNuxtApp()
 
 const route = useRoute()
 const id:number = parseInt(route.params.id as string)
+
+const isAdmin = ref(false)
 
 // const snackbar = useSnackbar()
 let loading = ref(false)
@@ -74,6 +76,36 @@ template.find((item)=>{
   if(item.includes(id)){
     templateImg.value = `/emoj/${item.join('.')}.webp`
     return true;
+  }
+})
+
+onMounted(()=>{
+  if(import.meta.client){
+    
+    $swal.fire({
+      html: `
+        <div class="mb-1">请参考海报图片拍照并上传，点赞数最高的前两桌将会获得精美礼品。</div>
+        <img style='max-width:95%;max-height:25vh;' class="mb-2" src="/emoj/15.16.17.18.webp" />
+        <img style='max-width:95%;max-height:25vh;' src="/sample.webp" />
+      `,
+      title: `温馨提示`,
+      showCloseButton: true,
+      showCancelButton: false,
+      focusConfirm: false,
+      confirmButtonText: '确定',
+    });
+
+    //url上补上?admin打开删除照片后门
+    isAdmin.value = (()=>{
+      let parURL = window.location.search
+      let reg = new RegExp('admin')
+      if(parURL.match(reg)){
+        return true;
+      }else {
+        return false;
+      }
+    })();
+
   }
 })
 
@@ -353,7 +385,7 @@ const hideCropper = () => {
 
  .u-img{
   max-width: 95%;
-  max-height: 400px;
+  width: 800px;
   cursor: pointer;
  }
  
@@ -365,6 +397,8 @@ const hideCropper = () => {
 
 .upload-box {
   border: dashed 1px;
+  max-width: 95%;
+  width: 800px;
 }
 
 .img-box { 

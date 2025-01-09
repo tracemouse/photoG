@@ -180,7 +180,7 @@ const onClickSearchSeat = async () => {
     .title{
       background: url("/bg.jpg");
       background-size: cover;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       display: flex;
       text-align: center;

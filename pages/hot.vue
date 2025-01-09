@@ -1,7 +1,7 @@
 <template>
 
     <div class="mb-2 d-flex justify-content-between align-items-center">
-        <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="showCarousel = true">
+        <button v-if="totalCnt != 0" type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="showCarousel = true">
             <Icon name="tabler:slideshow" class="me-1" size="1.2rem"></Icon> 照片秀
         </button>
         <button type="button" class="d-flex align-items-center cursor-pointer btn btn-sm btn-outline-danger" @click="refreshList()">
@@ -9,7 +9,7 @@
         </button>
     </div>
 
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-3">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-lg-3" v-if="totalCnt != 0">
       <CardImg v-for="item in photos" :item="item" @clickImg="onClickShowImgPopup($event)"/>
     </div>
 
@@ -66,7 +66,7 @@ const refreshList = () => {
         }
     }).then((data)=>{
         
-        console.log(data)
+        // console.log(data)
 
         photos.value = data.items as photo[]
         totalCnt.value = data.count as number
