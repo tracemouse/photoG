@@ -196,7 +196,7 @@ const onClickHideImgPopup = () => {
 }
 
 .pic-box{
-  max-width: 95%;
+  width: 95%;
 }
 
 </style>
