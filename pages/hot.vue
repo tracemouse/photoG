@@ -19,13 +19,13 @@
       </div>
     </template>
 
-    <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
+    <!-- <div v-if="showImgSrc" class="img-box position-fixed top-0 bottom-0 start-0 end-0 d-flex flex-column justify-content-center align-items-center">
         <Icon name="tabler:xbox-x" @click="onClickHideImgPopup()" class="me-1 text-white x-btn" size="3rem"></Icon>
         <img class="mb-2" :src="templateImgSrc">
         <img :src="showImgSrc">
-    </div>
+    </div> -->
 
-    <Carousel v-if="showCarousel" :list="photos" @hide="showCarousel = false"></Carousel>
+    <Carousel v-if="showCarousel" :list="photos" @hide="onClickHideImgPopup()" :active="carouselActive"></Carousel>
 
 </template>
 <script setup lang="ts">
@@ -40,6 +40,7 @@ let totalCnt = ref<number>(0)
 let showImgSrc = ref('');
 let templateImgSrc = ref('');
 let showCarousel = ref(false);
+let carouselActive = ref<number>(0);
 
 const { status, data } = await useFetch("/api/list", {
     query: {
@@ -79,8 +80,10 @@ const refreshList = () => {
 
 const onClickShowImgPopup = (event: any) => {
     let {templateImg, id} = event;
-    photos.value .find((item: any) => {
+    photos.value .find((item: any, index: number) => {
         if(item.id == id){
+            showCarousel.value = true;
+            carouselActive.value = index;
             templateImgSrc.value = templateImg;
             showImgSrc.value = item.url;
             document.body.style.overflow = 'hidden'
@@ -90,6 +93,8 @@ const onClickShowImgPopup = (event: any) => {
 }
 
 const onClickHideImgPopup = () => {
+    showCarousel.value = false;
+    carouselActive.value = 0;
     showImgSrc.value = '';
     document.body.style.overflow = ''
 }

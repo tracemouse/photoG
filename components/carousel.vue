@@ -4,15 +4,15 @@
 
 		<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item text-center" :class="{'active': index == 0}" v-for="(item, index) in props.list">
+				<div class="carousel-item text-center" :class="{'active': index == props.active}" v-for="(item, index) in props.list">
 					<div>
 						<div class="d-flex flex-column align-items-center">
 							<div class="text-center mb-2 h3 fw-bold text-white">第 {{ index +1 }} 名</div>
 							<img class="mb-2" :src="getTemplateImg(item.id)"/>
 							<img :src="item.url" :alt="item.id">
 							<div class="d-flex justify-content-between mt-2 w-100 px-2 text-white">
-								<div>第 {{item.id}} 桌</div>
-								<div class="d-flex align-items-center">获赞数 <Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
+								<div class="fw-bold">第 {{item.id}} 桌</div>
+								<div class="d-flex align-items-center fw-bold">获赞数 <Icon name="ant-design:like-outlined" class="mx-1" size="1.2rem"></Icon>{{ item.point }}</div>
 							</div>
 						</div>
 					</div>
@@ -41,7 +41,12 @@ const props = defineProps({
   show: {
     type: Boolean,
     required: false,
-  }
+  },
+	active: {
+		type: Number,
+		required: false,
+		default: 0
+	}
 })
 
 const emit = defineEmits(['hide'])
