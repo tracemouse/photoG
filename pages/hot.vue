@@ -66,7 +66,7 @@ const refreshList = () => {
         }
     }).then((data)=>{
         
-        console.log(data)
+        // console.log(data)
 
         photos.value = data.items as photo[]
         totalCnt.value = data.count as number

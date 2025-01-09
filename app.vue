@@ -22,7 +22,8 @@
       if(useDeviceType().isWechat){
         $swal.fire({
           html: `
-            <img style='max-width:95%;max-height:55vh;' src="/wechat.webp" />
+            <div class="mb-1">您目前正在使用微信访问此网页，建议使用手机浏览器访问。</div>
+            <img style='max-width:95%;max-height:40vh;' src="/wechat.webp" />
           `,
           title: "温馨提示",
           showCloseButton: true,
