@@ -15,9 +15,11 @@ export default eventHandler(async (event) => {
 		const db = await useDB(event)
 
 		//上传文件到 supabase storage
-		const data = await db.file.uploadImg(id as string, fileData)
-
-		let url = root_url + data.fullPath + "?" + (new Date()).getTime()
+		let fileid = (String(id) == "4")?"3A":String(id)
+		const data = await db.file.uploadImg(fileid as string, fileData)
+		console.log(data)
+		// let url = root_url + data.fullPath + "?" + (new Date()).getTime()
+		let url = root_url + data.fullPath
 
 		let rec = await db.comm.getById("photo", id)
 		if(rec){
