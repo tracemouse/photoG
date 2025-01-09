@@ -22,8 +22,9 @@
       if(useDeviceType().isWechat){
         $swal.fire({
           html: `
-            <img style='max-width:95%;max-height:60vh;' src="/wechat.webp" />
+            <img style='max-width:95%;max-height:55vh;' src="/wechat.webp" />
           `,
+          title: "温馨提示",
           showCloseButton: true,
           showCancelButton: false,
           focusConfirm: false,
