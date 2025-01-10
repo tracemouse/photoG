@@ -1,6 +1,7 @@
 <template>
 	<div class="popover-container px-3" :class="{'popover-container-remove':!props.show, 'popover-container-show': props.show}">
 		<div class="crepper-box p-3 position-relative d-flex flex-column align-items-center gap-3" :class="{'container-hide': props.show == false}">
+			<div>单指移动，双指缩放</div>
 			<Icon name="tabler:xbox-x" @click="()=>{emit('hide')}" class="text-white x-btn" size="3rem"></Icon>
 
 			<vueCropper

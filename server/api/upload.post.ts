@@ -18,8 +18,8 @@ export default eventHandler(async (event) => {
 		// let fileid = (String(id) == "4")?"3A":String(id)
 		const data = await db.file.uploadImg(id as string, fileData)
 		// console.log(data)
-		// let url = root_url + data.fullPath + "?" + (new Date()).getTime()
-		let url = root_url + data.fullPath
+		let url = root_url + data.fullPath + "?" + (new Date()).getTime()
+		// let url = root_url + data.fullPath
 
 		let rec = await db.comm.getById("photo", id)
 		if(rec){
