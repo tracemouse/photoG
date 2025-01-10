@@ -91,19 +91,32 @@ template.find((item)=>{
 onMounted(()=>{
   if(import.meta.client){
     
-    $swal.fire({
+    if(base64.value){
+      $swal.fire({
+        html: `
+        此桌照片已上传，如需删除或修改，请联系晚会工作人员.
+        `,
+        title: "温馨提示",
+        showCloseButton: true,
+        showCancelButton: false,
+        focusConfirm: true,
+        confirmButtonText: '确定',
+      });
+    }else{
+      $swal.fire({
       html: `
-        <div class="mb-1">请参考海报图片拍照并上传，点赞数最高的前两桌将会获得精美礼品。</div>
-        <img style='max-width:95%;max-height:25vh;' class="mb-2" src="/emoj/15.16.17.18.webp" />
-        <img style='max-width:95%;max-height:25vh;' src="/sample.webp" />
+      <div class="mb-1">请参考海报图片拍照并上传，点赞数最高的前两桌将会获得精美礼品。</div>
+      <img style='max-width:95%;max-height:25vh;' class="mb-2" src="/emoj/15.16.17.18.webp" />
+      <img style='max-width:95%;max-height:25vh;' src="/sample.webp" />
       `,
       title: `温馨提示`,
       showCloseButton: true,
       showCancelButton: false,
-      focusConfirm: false,
+      focusConfirm: true,
       confirmButtonText: '确定',
-    });
-
+    }) 
+  }
+    
     //url上补上?admin打开删除照片后门
     isAdmin.value = (()=>{
       let parURL = window.location.search
