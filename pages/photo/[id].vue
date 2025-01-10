@@ -24,10 +24,10 @@
     </div> -->
   </div>
   <div class="point-box" v-if="base64">
-    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(true)" v-if="!useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(1)" v-if="!useStore().vote.includes(id)">
       <Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ point }}
     </div>
-    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(false)" v-if="useStore().vote.includes(id)">
+    <div class="d-flex align-items-center cursor-pointer" @click="onClickVote(-1)" v-if="useStore().vote.includes(id)">
       <Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ point }}
     </div>
   </div>
@@ -114,10 +114,10 @@ if(photo.value){
   point.value = photo.value.point
 }
 
-const showError = (likes: boolean)=>{
+const showError = (likes: number)=>{
 
   let text = '抱歉，点赞失败，请稍候再试！'
-  if(!likes) {
+  if(likes != 1) {
     let text = '抱歉，取消点赞失败，请稍候再试！'
   }
 
@@ -128,10 +128,10 @@ const showError = (likes: boolean)=>{
   });
 }
 
-const showSucc = (likes: boolean)=>{
+const showSucc = (likes: number)=>{
 
   let text = "点赞成功！"
-  if(!likes) {
+  if(likes != 1) {
     text = "取消点赞成功！"
   }
 
@@ -141,7 +141,7 @@ const showSucc = (likes: boolean)=>{
   });
 }
 
-const onClickVote = (likes: boolean)=>{
+const onClickVote = (likes: number)=>{
   useLoading().value = true
 
   $fetch('/api/vote',{
@@ -151,12 +151,11 @@ const onClickVote = (likes: boolean)=>{
     }
   }).then((data)=>{
     let vote = useStore().vote
-    if(likes){
-      point.value = point.value + 1
+    point.value = data.point
+    if(likes == 1){
       if(!vote) vote = []
       vote.push(id)
     }else {
-      point.value = point.value - 1
       vote.splice(vote.indexOf(id),1)
     }
     useStore().setVote(vote)
