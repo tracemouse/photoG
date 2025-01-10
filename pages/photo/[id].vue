@@ -151,12 +151,11 @@ const onClickVote = (likes: number)=>{
     }
   }).then((data)=>{
     let vote = useStore().vote
+    point.value = data.point
     if(likes == 1){
-      point.value = point.value + 1
       if(!vote) vote = []
       vote.push(id)
     }else {
-      point.value = point.value - 1
       vote.splice(vote.indexOf(id),1)
     }
     useStore().setVote(vote)
