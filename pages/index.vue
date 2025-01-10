@@ -14,7 +14,11 @@
       </a>
   </div>
 
-  <div class="d-flex justify-content-center mt-5">
+  <div class="d-flex justify-content-center text-center mt-5">
+    <img src="/logo.webp"/>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
     <button class="btn btn-primary" @click="onClickUpload">上传照片</button>
   </div>
   
