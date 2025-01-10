@@ -260,10 +260,18 @@ const base64Compress = (base64Data, scaleWidth, quality = 0.5) => {
     });
 }
 
-const imageScale = (width, originWidth, originHeight) => {
-    const scaleRatio = width / originWidth;
-    const scaleHeight = scaleRatio * originHeight;
-    return [width, scaleHeight];
+const imageScale = (maxWidth, w, h) => {
+    
+    // const scaleRatio = maxWidth / originWidth;
+    // const scaleHeight = scaleRatio * originHeight;
+    // return [maxWidth, scaleHeight];
+
+    if (w > maxWidth) {
+        height *= w / maxWidth;
+        w = maxWidth;
+    }
+
+    return [w, h]
 }
 
 const compress = (file, scaleWidth, quality = 0.5) => {
