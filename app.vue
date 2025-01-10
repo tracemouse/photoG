@@ -31,7 +31,7 @@
           title: "温馨提示",
           showCloseButton: true,
           showCancelButton: false,
-          focusConfirm: false,
+          focusConfirm: true,
           confirmButtonText: '确定',
         });
       }

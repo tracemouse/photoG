@@ -99,6 +99,28 @@ const onClickHideImgPopup = () => {
     document.body.style.overflow = ''
 }
 
+onMounted(()=>{
+    if(import.meta.client){
+        $swal.fire({
+            html: `
+            <div class="mb-1">此页面亦可点赞，请点击
+            <img src="/svg/like-outlined.svg" class="mx-1" size="1.2rem"></img>
+            /
+            <img src="/svg/like-filled.svg" class="mx-1 text-danger" size="1.2rem"></img>
+            点赞/取消点赞。
+            </div>
+            <div>
+            图片可点击放大，照片秀在点击翻页一次之后会自动播放。
+            </div>
+            `,
+            title: "温馨提示",
+            showCloseButton: true,
+            showCancelButton: false,
+            focusConfirm: true,
+            confirmButtonText: '确定',
+        });
+    }
+})
 </script>
 
 <style lang="scss" scoped>

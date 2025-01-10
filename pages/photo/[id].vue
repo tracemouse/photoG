@@ -1,4 +1,12 @@
 <template>
+<div class="alert alert-info" role="alert">
+    <b>温馨提示：</b>
+    请点击
+    <img src="/svg/like-outlined.svg" class="mx-1" size="1.2rem"></img>
+    /
+    <img src="/svg/like-filled.svg" class="mx-1 text-danger" size="1.2rem"></img>
+    点赞/取消点赞，图片可点击放大。
+</div>
 
 <Table></Table>
 
