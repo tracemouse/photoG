@@ -24,7 +24,14 @@ export default eventHandler(async (event) => {
 		}
 
 		const data = await db.comm.increase({row_id: parseInt(id as string), x: x})
-		return { data : data}
+
+		const photo = await db.comm.getById("photo",id as string)
+ 
+		if(!photo) return {}
+
+		return photo
+
+		// return { data : data}
 
 	}catch(error){
 		useServerError().retureError(error)
