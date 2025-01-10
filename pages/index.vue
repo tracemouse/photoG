@@ -15,7 +15,7 @@
   </div>
 
   <div class="d-flex justify-content-center text-center mt-5">
-    <img src="/logo.webp"/>
+    <NuxtImg src="/logo.webp" style="width:200px;"/>
   </div>
 
   <div class="d-flex justify-content-center mt-3">
