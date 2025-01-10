@@ -11,10 +11,10 @@
 				<div class="title px-2">
 					第{{ props.item.id }}桌
 				</div>
-				<div class="release_date px-2" @click="onClickVote(true)" v-if="!useStore().vote.includes(props.item.id)">
+				<div class="release_date px-2" @click="onClickVote(1)" v-if="!useStore().vote.includes(props.item.id)">
 					<Icon name="ant-design:like-outlined" class="me-1" size="1.2rem"></Icon> {{ props.item.point }}
 				</div>
-				<div class="release_date px-2" @click="onClickVote(false)" v-if="useStore().vote.includes(props.item.id)">
+				<div class="release_date px-2" @click="onClickVote(-1)" v-if="useStore().vote.includes(props.item.id)">
 					<Icon name="ant-design:like-filled" class="text-danger me-1" size="1.2rem"></Icon> {{ props.item.point }}
 				</div>
 			</div>
@@ -41,10 +41,10 @@ const onClickImg = (id) => {
 	emit('clickImg', {templateImg: getTemplateImg(id), id})
 }
 
-const showError = (likes: boolean)=>{
+const showError = (likes: number)=>{
 
 	let text = '抱歉，点赞失败，请稍候再试！'
-	if(!likes) {
+	if(likes != 1) {
 		let text = '抱歉，取消点赞失败，请稍候再试！'
 	}
 
@@ -55,10 +55,10 @@ const showError = (likes: boolean)=>{
 	});
 }
 
-const showSucc = (likes: boolean)=>{
+const showSucc = (likes: number)=>{
 
 	let text = "点赞成功！"
-	if(!likes) {
+	if(likes != 1) {
 		text = "取消点赞成功！"
 	}
 
@@ -68,7 +68,7 @@ const showSucc = (likes: boolean)=>{
 	});
 }
 
-const onClickVote = (likes: boolean)=>{
+const onClickVote = (likes: number)=>{
   useLoading().value = true
 
   $fetch('/api/vote',{
@@ -78,7 +78,7 @@ const onClickVote = (likes: boolean)=>{
     }
   }).then((data)=>{
 		let vote = useStore().vote
-		if(likes){
+		if(likes == 1){
 			props.item.point = props.item.point + 1
 			if(!vote) vote = []
 			vote.push(props.item.id)

@@ -17,10 +17,12 @@ export default eventHandler(async (event) => {
 			useServerError().throwApiError("无效的桌号！")
 		}
 
+
 		let x = 1;
-		if(!likes){
+		if(likes != 1){
 			x = -1;
 		}
+
 		const data = await db.comm.increase({row_id: parseInt(id as string), x: x})
 		return { data : data}
 
